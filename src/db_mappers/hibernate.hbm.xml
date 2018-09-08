@@ -41,4 +41,5 @@ Contributor(s):
 -->
 <hibernate-mapping>
   <class name="pojos.Student" table="student"/>
+  
 </hibernate-mapping>

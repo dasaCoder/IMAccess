@@ -5,14 +5,30 @@
  */
 package models;
 
+/**
+ *
+ * @author ACER
+ */
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student")
-public class Student {
+@Table(name="lecturers")
+public class Lecturer {
+    
+     @Id
+    @GeneratedValue
+    private int id;
+    private String title;
+    private String first_name;
+    private String last_name;
+    private String full_name;
+    private String address;
+    private int telephone;
+    private String email;
+    private String nic_no;
 
     /**
      * @return the id
@@ -113,88 +129,31 @@ public class Student {
     }
 
     /**
-     * @return the year
+     * @return the email
      */
-    public int getYear() {
-        return year;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param year the year to set
+     * @param email the email to set
      */
-    public void setYear(int year) {
-        this.year = year;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
-     * @return the month
+     * @return the nic_no
      */
-    public int getMonth() {
-        return month;
+    public String getNic_no() {
+        return nic_no;
     }
 
     /**
-     * @param month the month to set
+     * @param nic_no the nic_no to set
      */
-    public void setMonth(int month) {
-        this.month = month;
+    public void setNic_no(String nic_no) {
+        this.nic_no = nic_no;
     }
-
-    /**
-     * @return the day
-     */
-    public int getDay() {
-        return day;
-    }
-
-    /**
-     * @param day the day to set
-     */
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    /**
-     * @return the degree
-     */
-    public String getDegree() {
-        return degree;
-    }
-
-    /**
-     * @param degree the degree to set
-     */
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-    @Id
-    @GeneratedValue
-    private int id;
-    private String title;
-     private String first_name;
-      private String last_name;
-     private String full_name;
-      private String address;
-       private int telephone;
-       private int year;
-       private int month;
-       private int day;
-        private String degree;
-        private String student_no;
-
-    /**
-     * @return the student_no
-     */
-    public String getStudent_no() {
-        return student_no;
-    }
-
-    /**
-     * @param student_no the student_no to set
-     */
-    public void setStudent_no(String student_no) {
-        this.student_no = student_no;
-    }
-        
     
 }

@@ -55,6 +55,7 @@ Contributor(s):
     
         
     <mapping class="models.Student"/>
+    <mapping class="models.Lecturer"/>
     
   </session-factory>
 </hibernate-configuration>
