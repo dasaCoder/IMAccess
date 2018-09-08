@@ -90,7 +90,6 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbn_accounts = new javax.swing.JButton();
         rbn_attendance = new javax.swing.JButton();
         panel_body = new javax.swing.JPanel();
-        panel_genarate_att_sheet = new javax.swing.JPanel();
         panel_add_student = new javax.swing.JPanel();
         txt_acc_user_first_name = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -135,6 +134,16 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_acc_lec_address = new javax.swing.JTextArea();
+        panel_genarate_att_sheet = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        combo_att_gen_sheet_degree = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        combo_att_gen_sheet_ac_yr = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        combo_att_gen_sheet_date = new com.toedter.calendar.JDateChooser();
+        jLabel21 = new javax.swing.JLabel();
+        combo_att_gen_sheet_from = new javax.swing.JTextField();
+        combo_att_gen_sheet_from_AM = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -220,21 +229,6 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.setBackground(new java.awt.Color(255, 255, 255));
         panel_body.setLayout(new java.awt.CardLayout());
-
-        panel_genarate_att_sheet.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panel_genarate_att_sheetLayout = new javax.swing.GroupLayout(panel_genarate_att_sheet);
-        panel_genarate_att_sheet.setLayout(panel_genarate_att_sheetLayout);
-        panel_genarate_att_sheetLayout.setHorizontalGroup(
-            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
-        );
-        panel_genarate_att_sheetLayout.setVerticalGroup(
-            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-        );
-
-        panel_body.add(panel_genarate_att_sheet, "card4");
 
         panel_add_student.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -549,48 +543,48 @@ public class IMAccess extends javax.swing.JFrame {
             panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_add_lecturerLayout.createSequentialGroup()
+                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addComponent(txt_acc_lec_email)
+                    .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                         .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txt_acc_lec_nic))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txt_acc_lec_nic, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(txt_acc_lec_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_add_lecturerLayout.createSequentialGroup()
-                        .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_acc_lec_full_name)
-                            .addComponent(jLabel14)
-                            .addGroup(panel_add_lecturerLayout.createSequentialGroup()
-                                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(combo_acc_lec_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_add_lecturerLayout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(157, 157, 157)
-                                        .addComponent(jLabel13))
-                                    .addGroup(panel_add_lecturerLayout.createSequentialGroup()
-                                        .addComponent(txt_acc_lec_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(txt_acc_lec_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txt_acc_lec_email)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(panel_add_lecturerLayout.createSequentialGroup()
+                        .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel10)
+                            .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_acc_lec_full_name)
+                                .addComponent(jLabel14)
+                                .addGroup(panel_add_lecturerLayout.createSequentialGroup()
+                                    .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(combo_acc_lec_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panel_add_lecturerLayout.createSequentialGroup()
+                                            .addComponent(jLabel12)
+                                            .addGap(157, 157, 157)
+                                            .addComponent(jLabel13))
+                                        .addGroup(panel_add_lecturerLayout.createSequentialGroup()
+                                            .addComponent(txt_acc_lec_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(10, 10, 10)
+                                            .addComponent(txt_acc_lec_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(112, 112, 112)
-                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_add_lecturerLayout.createSequentialGroup()
-                        .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)))
+                .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93))
+            .addGroup(panel_add_lecturerLayout.createSequentialGroup()
+                .addGap(700, 700, 700)
+                .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_add_lecturerLayout.setVerticalGroup(
             panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -608,21 +602,18 @@ public class IMAccess extends javax.swing.JFrame {
                             .addComponent(txt_acc_lec_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_acc_lec_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_add_lecturerLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(11, 11, 11)
-                                .addComponent(txt_acc_lec_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel15))
-                                .addGap(13, 13, 13)
-                                .addComponent(txt_acc_lec_nic))
-                            .addGroup(panel_add_lecturerLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txt_acc_lec_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14)
+                        .addGap(11, 11, 11)
+                        .addComponent(txt_acc_lec_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_acc_lec_telephone)
+                            .addComponent(txt_acc_lec_nic, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addGroup(panel_add_lecturerLayout.createSequentialGroup()
@@ -632,15 +623,85 @@ public class IMAccess extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                         .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)))
-                .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))))
         );
 
         panel_body.add(panel_add_lecturer, "card3");
+
+        panel_genarate_att_sheet.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel18.setText("Date");
+
+        combo_att_gen_sheet_degree.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MIT", "Degree 1", " " }));
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel19.setText("Academic Year");
+
+        combo_att_gen_sheet_ac_yr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2013/2014", "2014/02015", "2015/2016", "2016/2017" }));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel20.setText("Degree Program");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel21.setText("From");
+
+        javax.swing.GroupLayout panel_genarate_att_sheetLayout = new javax.swing.GroupLayout(panel_genarate_att_sheet);
+        panel_genarate_att_sheet.setLayout(panel_genarate_att_sheetLayout);
+        panel_genarate_att_sheetLayout.setHorizontalGroup(
+            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18)
+                            .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addGap(31, 31, 31)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addComponent(combo_att_gen_sheet_from, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_att_gen_sheet_from_AM, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(413, Short.MAX_VALUE))
+        );
+        panel_genarate_att_sheetLayout.setVerticalGroup(
+            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(combo_att_gen_sheet_from_AM, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(combo_att_gen_sheet_from))
+                .addContainerGap(256, Short.MAX_VALUE))
+        );
+
+        panel_body.add(panel_genarate_att_sheet, "card4");
 
         getContentPane().add(panel_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1010, 530));
 
@@ -844,6 +905,11 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_acc_user_month;
     private javax.swing.JComboBox<String> combo_acc_user_title;
     private javax.swing.JComboBox<String> combo_acc_user_year;
+    private javax.swing.JComboBox<String> combo_att_gen_sheet_ac_yr;
+    private com.toedter.calendar.JDateChooser combo_att_gen_sheet_date;
+    private javax.swing.JComboBox<String> combo_att_gen_sheet_degree;
+    private javax.swing.JTextField combo_att_gen_sheet_from;
+    private javax.swing.JSpinner combo_att_gen_sheet_from_AM;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -853,7 +919,11 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
