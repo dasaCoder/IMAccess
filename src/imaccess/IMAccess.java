@@ -85,11 +85,12 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbnI_add_stuent = new javax.swing.JButton();
         btn_rbnI_add_lecturer = new javax.swing.JButton();
         panel_rbn_Attendance = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btn_rbn_att_sheet = new javax.swing.JButton();
         rbn_student = new javax.swing.JButton();
         btn_rbn_accounts = new javax.swing.JButton();
         rbn_attendance = new javax.swing.JButton();
         panel_body = new javax.swing.JPanel();
+        panel_genarate_att_sheet = new javax.swing.JPanel();
         panel_add_student = new javax.swing.JPanel();
         txt_acc_user_first_name = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -151,6 +152,7 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_accounts.setBackground(new java.awt.Color(255, 255, 255));
         panel_rbn_accounts.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btn_rbnI_add_visitor1.setBackground(new java.awt.Color(255, 255, 255));
         btn_rbnI_add_visitor1.setText("Add Visitor");
         panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 188, 91));
 
@@ -162,6 +164,7 @@ public class IMAccess extends javax.swing.JFrame {
         });
         panel_rbn_accounts.add(btn_rbnI_add_stuent, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, 191, 91));
 
+        btn_rbnI_add_lecturer.setBackground(new java.awt.Color(243, 243, 243));
         btn_rbnI_add_lecturer.setText("Add Lecturer");
         btn_rbnI_add_lecturer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,8 +183,13 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_Attendance.setBackground(new java.awt.Color(255, 255, 255));
         panel_rbn_Attendance.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("test");
-        panel_rbn_Attendance.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 130, 80));
+        btn_rbn_att_sheet.setText("Generate Attendance Sheet");
+        btn_rbn_att_sheet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbn_att_sheetActionPerformed(evt);
+            }
+        });
+        panel_rbn_Attendance.add(btn_rbn_att_sheet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 80));
 
         panel_rbn_body.add(panel_rbn_Attendance, "card3");
 
@@ -212,6 +220,21 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.setBackground(new java.awt.Color(255, 255, 255));
         panel_body.setLayout(new java.awt.CardLayout());
+
+        panel_genarate_att_sheet.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout panel_genarate_att_sheetLayout = new javax.swing.GroupLayout(panel_genarate_att_sheet);
+        panel_genarate_att_sheet.setLayout(panel_genarate_att_sheetLayout);
+        panel_genarate_att_sheetLayout.setHorizontalGroup(
+            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1010, Short.MAX_VALUE)
+        );
+        panel_genarate_att_sheetLayout.setVerticalGroup(
+            panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 530, Short.MAX_VALUE)
+        );
+
+        panel_body.add(panel_genarate_att_sheet, "card4");
 
         panel_add_student.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -492,7 +515,7 @@ public class IMAccess extends javax.swing.JFrame {
         );
         panel_acc_user_img1Layout.setVerticalGroup(
             panel_acc_user_img1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
+            .addGap(0, 345, Short.MAX_VALUE)
         );
 
         btn_acc_user_add1.setBackground(new java.awt.Color(0, 153, 153));
@@ -613,7 +636,7 @@ public class IMAccess extends javax.swing.JFrame {
                     .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                         .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(148, 148, 148)))
-                .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -653,7 +676,7 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_body.repaint();
         panel_rbn_body.revalidate();
         
-        panel_rbn_body.add(panel_add_s);
+        panel_rbn_body.add(panel_rbn_Attendance);
         panel_rbn_body.repaint();
         panel_rbn_body.revalidate();
     }//GEN-LAST:event_rbn_attendanceActionPerformed
@@ -762,6 +785,16 @@ public class IMAccess extends javax.swing.JFrame {
         panel_body.revalidate();
     }//GEN-LAST:event_btn_rbnI_add_lecturerMouseClicked
 
+    private void btn_rbn_att_sheetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_sheetActionPerformed
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        panel_body.add(panel_genarate_att_sheet);
+        panel_body.repaint();
+        panel_body.revalidate();
+    }//GEN-LAST:event_btn_rbn_att_sheetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -804,13 +837,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
     private javax.swing.JButton btn_rbn_accounts;
+    private javax.swing.JButton btn_rbn_att_sheet;
     private javax.swing.JComboBox<String> combo_acc_lec_title;
     private javax.swing.JComboBox<String> combo_acc_user_day;
     private javax.swing.JComboBox<String> combo_acc_user_degree;
     private javax.swing.JComboBox<String> combo_acc_user_month;
     private javax.swing.JComboBox<String> combo_acc_user_title;
     private javax.swing.JComboBox<String> combo_acc_user_year;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -837,6 +870,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel panel_add_lecturer;
     private javax.swing.JPanel panel_add_student;
     private javax.swing.JPanel panel_body;
+    private javax.swing.JPanel panel_genarate_att_sheet;
     private javax.swing.JPanel panel_rbn_Attendance;
     private javax.swing.JPanel panel_rbn_accounts;
     private javax.swing.JPanel panel_rbn_body;
