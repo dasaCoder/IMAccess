@@ -5,6 +5,15 @@
  */
 package imaccess;
 
+import java.util.List;
+import org.hibernate.Query;
+import models.Student;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 /**
  *
  * @author ACER
@@ -14,8 +23,27 @@ public class IMAccess extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
+    
+    ApplicationContext ctx = new ClassPathXmlApplicationContext("SpringXMLConfig.xml");
+    Student std = (Student) ctx.getBean("student");
+    
     public IMAccess() {
         initComponents();
+        
+        Session session = sessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Student");
+        
+        List<Student> list = query.list();
+        
+        for(Student stu1:list){
+            System.out.println(stu1.getFirst_name());
+        }
+        
+    }
+    
+    public static SessionFactory sessionFactory(){
+        return new Configuration().configure().buildSessionFactory();
     }
 
     /**

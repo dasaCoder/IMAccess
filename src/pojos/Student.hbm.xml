@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2018 2:17:35 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="pojos.Student" table="student" catalog="imaccess" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="10" not-null="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="20" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="20" not-null="true" />
+        </property>
+        <property name="fullName" type="string">
+            <column name="full_name" length="100" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="65535" not-null="true" />
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="12" not-null="true" />
+        </property>
+        <property name="degree" type="string">
+            <column name="degree" length="50" not-null="true" />
+        </property>
+        <property name="year" type="int">
+            <column name="year" not-null="true" />
+        </property>
+        <property name="month" type="int">
+            <column name="month" not-null="true" />
+        </property>
+        <property name="day" type="int">
+            <column name="day" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
