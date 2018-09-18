@@ -10,5 +10,11 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     
     <bean id="lecturer" class="models.Lecturer" >
     </bean>
+
+    <bean id="acedamicYear" class="models.AcedamicYear" >
+        </bean>
+        
+    <bean id="degree" class="models.Degree" >
+        </bean>
  
 </beans>

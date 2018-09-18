@@ -5,9 +5,13 @@
  */
 package imaccess;
 
+
 import java.util.List;
+import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import models.AcedamicYear;
+import models.Degree;
 import models.Lecturer;
 import org.hibernate.Query;
 import models.Student;
@@ -30,6 +34,11 @@ public class IMAccess extends javax.swing.JFrame {
     ApplicationContext ctx = new ClassPathXmlApplicationContext("SpringXMLConfig.xml");
     Student student = (Student) ctx.getBean("student");
     Lecturer lecturer = (Lecturer) ctx.getBean("lecturer");
+    AcedamicYear acedamicYear = (AcedamicYear) ctx.getBean("acedamicYear");
+    Degree degree = (Degree) ctx.getBean("degree");
+    
+    List<AcedamicYear> acedamicYearList;
+    List<Degree> degreeList;
     
     public IMAccess() {
         try {
@@ -49,25 +58,40 @@ public class IMAccess extends javax.swing.JFrame {
         catch (IllegalAccessException e) {
            // handle exception
         }
-        
         initComponents();
         
         Session session = sessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("from Student");
         
-        List<Student> list = query.list();
         
-        for(Student stu1:list){
-            System.out.println(stu1.getFirst_name());
-        }
+        Query query = session.createQuery("from AcedamicYear");
+        
+        acedamicYearList = query.list();
+        
+            for(AcedamicYear acYear:acedamicYearList){
+                combo_acc_user_acedamic_yr.addItem(acYear.getAcademic_year());
+                combo_att_gen_sheet_ac_yr.addItem(acYear.getAcademic_year());
+            }
+        
+        Query query2 = session.createQuery("from Degree");
+       
+        degreeList = query2.list();
+              
+            for(Degree dgr:degreeList){
+                combo_acc_user_degree.addItem(dgr.getShort_name());
+                combo_att_gen_sheet_degree.addItem(dgr.getShort_name());
+            }
+        
+        
         
     }
     
+    
+       
     public static SessionFactory sessionFactory(){
         return new Configuration().configure().buildSessionFactory();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,6 +138,8 @@ public class IMAccess extends javax.swing.JFrame {
         btn_acc_user_add = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txt_acc_student_address = new javax.swing.JTextArea();
+        combo_acc_user_acedamic_yr = new javax.swing.JComboBox<>();
+        jLabel22 = new javax.swing.JLabel();
         panel_add_lecturer = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         combo_acc_lec_title = new javax.swing.JComboBox<>();
@@ -310,9 +336,7 @@ public class IMAccess extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Student Number");
-
-        combo_acc_user_degree.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MIT", "Degree 1", " " }));
+        jLabel9.setText("Degree");
 
         panel_acc_user_img.setBackground(new java.awt.Color(153, 0, 0));
 
@@ -339,6 +363,9 @@ public class IMAccess extends javax.swing.JFrame {
         txt_acc_student_address.setRows(5);
         jScrollPane1.setViewportView(txt_acc_student_address);
 
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel22.setText("Academic Year");
+
         javax.swing.GroupLayout panel_add_studentLayout = new javax.swing.GroupLayout(panel_add_student);
         panel_add_student.setLayout(panel_add_studentLayout);
         panel_add_studentLayout.setHorizontalGroup(
@@ -346,56 +373,62 @@ public class IMAccess extends javax.swing.JFrame {
             .addGroup(panel_add_studentLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_acc_user_full_name)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel3)
-                        .addGroup(panel_add_studentLayout.createSequentialGroup()
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(combo_acc_user_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panel_add_studentLayout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(157, 157, 157)
-                                    .addComponent(jLabel2))
-                                .addGroup(panel_add_studentLayout.createSequentialGroup()
-                                    .addComponent(txt_acc_user_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(txt_acc_user_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(panel_add_studentLayout.createSequentialGroup()
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(txt_acc_user_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(23, 23, 23)
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addGroup(panel_add_studentLayout.createSequentialGroup()
-                                    .addComponent(combo_acc_user_year, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(combo_acc_user_month, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(combo_acc_user_day, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(panel_add_studentLayout.createSequentialGroup()
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6)
-                                .addComponent(txt_acc_user_stu_no, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(combo_acc_user_degree, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panel_add_studentLayout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(0, 0, Short.MAX_VALUE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_add_studentLayout.createSequentialGroup()
-                        .addComponent(panel_acc_user_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_add_studentLayout.createSequentialGroup()
+                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addComponent(jLabel4))
+                        .addGap(148, 148, 148)
                         .addComponent(btn_acc_user_add, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(174, 174, 174))))
+                        .addGap(165, 165, 165))
+                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_acc_user_full_name)
+                            .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txt_acc_user_stu_no, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(combo_acc_user_degree, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(combo_acc_user_acedamic_yr, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(combo_acc_user_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(157, 157, 157)
+                                                .addComponent(jLabel2))
+                                            .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                                .addComponent(txt_acc_user_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(txt_acc_user_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(txt_acc_user_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(23, 23, 23)
+                                        .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addGroup(panel_add_studentLayout.createSequentialGroup()
+                                                .addComponent(combo_acc_user_year, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(combo_acc_user_month, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(combo_acc_user_day, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel22))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addComponent(panel_acc_user_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96))))
         );
         panel_add_studentLayout.setVerticalGroup(
             panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,13 +468,20 @@ public class IMAccess extends javax.swing.JFrame {
                             .addComponent(combo_acc_user_month, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combo_acc_user_day, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(panel_acc_user_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(btn_acc_user_add, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel22)
+                .addGap(13, 13, 13)
+                .addComponent(combo_acc_user_acedamic_yr, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addGroup(panel_add_studentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(btn_acc_user_add, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_add_studentLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(48, 48, 48))
         );
 
         panel_body.add(panel_add_student, "card2");
@@ -626,7 +666,7 @@ public class IMAccess extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                         .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                         .addComponent(btn_acc_user_add1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37))))
         );
@@ -638,12 +678,8 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Date");
 
-        combo_att_gen_sheet_degree.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MIT", "Degree 1", " " }));
-
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel19.setText("Academic Year");
-
-        combo_att_gen_sheet_ac_yr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2013/2014", "2014/02015", "2015/2016", "2016/2017" }));
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Degree Program");
@@ -698,12 +734,12 @@ public class IMAccess extends javax.swing.JFrame {
                 .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(combo_att_gen_sheet_from_AM, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(combo_att_gen_sheet_from))
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         panel_body.add(panel_genarate_att_sheet, "card4");
 
-        getContentPane().add(panel_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1010, 530));
+        getContentPane().add(panel_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 1010, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -772,7 +808,7 @@ public class IMAccess extends javax.swing.JFrame {
         student.setFirst_name(txt_acc_user_first_name.getText());
         student.setLast_name(txt_acc_user_last_name.getText());
         student.setFull_name(txt_acc_user_full_name.getText());
-        student.setDegree(combo_acc_user_degree.getSelectedItem().toString());
+        //student.setDegree(combo_acc_user_degree.getSelectedItem().toString());
         student.setStudent_no(txt_acc_user_stu_no.getText());
         student.setAddress(txt_acc_student_address.getText());
         student.setDay(Integer.parseInt(combo_acc_user_day.getSelectedItem().toString()));
@@ -780,11 +816,17 @@ public class IMAccess extends javax.swing.JFrame {
         student.setYear(Integer.parseInt(combo_acc_user_year.getSelectedItem().toString()));
         student.setTelephone(Integer.parseInt(txt_acc_user_telephone.getText()));
         
+        student.setAcademic_yr_id(getIDOfAcedamicYear((String)combo_acc_user_acedamic_yr.getSelectedItem().toString()));
+        student.setDegree_id(getIDOfDegree(combo_acc_user_degree.getSelectedItem().toString())); //Integer.parseInt(combo_acc_user_degree.getSelectedItem().toString())
+        //combo_acc_user_degree.addItem(new Item(1,"test"));
+        student.setIs_active(true);
+        
         Session session = sessionFactory().openSession();
                 
                 session.beginTransaction();
                 session.save(student);
                 session.getTransaction().commit();
+                System.out.println(session.getTransaction().getLocalStatus());
     }//GEN-LAST:event_btn_acc_user_addActionPerformed
 
     private void txt_acc_lec_telephoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_lec_telephoneActionPerformed
@@ -890,6 +932,8 @@ public class IMAccess extends javax.swing.JFrame {
             new IMAccess().setVisible(true);
         });
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acc_user_add;
@@ -900,6 +944,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_rbn_accounts;
     private javax.swing.JButton btn_rbn_att_sheet;
     private javax.swing.JComboBox<String> combo_acc_lec_title;
+    private javax.swing.JComboBox<String> combo_acc_user_acedamic_yr;
     private javax.swing.JComboBox<String> combo_acc_user_day;
     private javax.swing.JComboBox<String> combo_acc_user_degree;
     private javax.swing.JComboBox<String> combo_acc_user_month;
@@ -924,6 +969,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -960,4 +1006,29 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JTextField txt_acc_user_stu_no;
     private javax.swing.JTextField txt_acc_user_telephone;
     // End of variables declaration//GEN-END:variables
+
+    int getIDOfAcedamicYear(String s){
+        for(AcedamicYear acYear:acedamicYearList){
+            if(s.equals(acYear.getAcademic_year())){
+                return acYear.getId();
+            }
+            
+        }
+        return -99;
+    }
+    
+    int getIDOfDegree(String s){
+        for(Degree dgr:degreeList){
+            if(s.equals(dgr.getShort_name())){
+                return dgr.getId();
+            }
+            
+        }
+        return -99;
+    }
+
+    
 }
+
+
+

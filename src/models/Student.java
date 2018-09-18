@@ -15,6 +15,48 @@ import javax.persistence.Table;
 public class Student {
 
     /**
+     * @return the is_active
+     */
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    /**
+     * @param is_active the is_active to set
+     */
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
+    }
+
+    /**
+     * @return the degree_id
+     */
+    public int getDegree_id() {
+        return degree_id;
+    }
+
+    /**
+     * @param degree_id the degree_id to set
+     */
+    public void setDegree_id(int degree_id) {
+        this.degree_id = degree_id;
+    }
+
+    /**
+     * @return the academic_yr_id
+     */
+    public int getAcademic_yr_id() {
+        return academic_yr_id;
+    }
+
+    /**
+     * @param academic_yr_id the academic_yr_id to set
+     */
+    public void setAcademic_yr_id(int academic_yr_id) {
+        this.academic_yr_id = academic_yr_id;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -157,30 +199,26 @@ public class Student {
     /**
      * @return the degree
      */
-    public String getDegree() {
-        return degree;
-    }
-
-    /**
-     * @param degree the degree to set
-     */
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
+    
     @Id
     @GeneratedValue
     private int id;
     private String title;
-     private String first_name;
-      private String last_name;
-     private String full_name;
-      private String address;
-       private int telephone;
-       private int year;
-       private int month;
-       private int day;
-        private String degree;
-        private String student_no;
+    private String first_name;
+    private String last_name;
+    private String full_name;
+    private String address;
+    private int telephone;
+    private int year;
+    private int month;
+    private int day;
+    //private String degree;
+    private String student_no;
+    
+    private int degree_id;
+    private int academic_yr_id;
+    private boolean is_active;
+  
 
     /**
      * @return the student_no

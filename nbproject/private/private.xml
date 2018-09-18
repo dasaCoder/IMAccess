@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/project/IMAccess/src/models/Degree.java</file>
+            <file>file:/D:/project/IMAccess/src/models/Lecturer.java</file>
             <file>file:/D:/project/IMAccess/src/models/Student.java</file>
+            <file>file:/D:/project/IMAccess/src/Connector.java</file>
             <file>file:/D:/project/IMAccess/src/SpringXMLConfig.xml</file>
             <file>file:/D:/project/IMAccess/src/imaccess/IMAccess.java</file>
             <file>file:/D:/project/IMAccess/src/hibernate.cfg.xml</file>
+            <file>file:/D:/project/IMAccess/src/models/AcedamicYear.java</file>
         </group>
     </open-files>
 </project-private>
