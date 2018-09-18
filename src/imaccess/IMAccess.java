@@ -140,6 +140,26 @@ public class IMAccess extends javax.swing.JFrame {
         txt_acc_student_address = new javax.swing.JTextArea();
         combo_acc_user_acedamic_yr = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
+        panel_add_visitor = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        combo_acc_visitor_title = new javax.swing.JComboBox<>();
+        txt_acc_visitor_first_name = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        txt_acc_visitor_last_name = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        txt_acc_visitor_full_name = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
+        txt_acc_visitor_nic = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        txt_acc_visitor_telephone = new javax.swing.JTextField();
+        jLabel29 = new javax.swing.JLabel();
+        txt_acc_visitor_email = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txt_acc_visitor_address = new javax.swing.JTextArea();
+        jLabel30 = new javax.swing.JLabel();
+        panel_acc_visitor_img = new javax.swing.JPanel();
+        btn_acc_visitor_add = new javax.swing.JButton();
         panel_add_lecturer = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         combo_acc_lec_title = new javax.swing.JComboBox<>();
@@ -189,6 +209,11 @@ public class IMAccess extends javax.swing.JFrame {
 
         btn_rbnI_add_visitor1.setBackground(new java.awt.Color(255, 255, 255));
         btn_rbnI_add_visitor1.setText("Add Visitor");
+        btn_rbnI_add_visitor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbnI_add_visitor1ActionPerformed(evt);
+            }
+        });
         panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 188, 91));
 
         btn_rbnI_add_stuent.setText("Add Student");
@@ -486,6 +511,191 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.add(panel_add_student, "card2");
 
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel23.setText("Title");
+
+        combo_acc_visitor_title.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        combo_acc_visitor_title.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mr", "Miss", "Mrs", "Ven" }));
+        combo_acc_visitor_title.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_acc_visitor_titleActionPerformed(evt);
+            }
+        });
+
+        txt_acc_visitor_first_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setText("First Name");
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel25.setText("Last Name");
+
+        txt_acc_visitor_last_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel26.setText("Name with Initials");
+
+        txt_acc_visitor_full_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_acc_visitor_full_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_acc_visitor_full_nameActionPerformed(evt);
+            }
+        });
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel27.setText("NIC No");
+
+        txt_acc_visitor_nic.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_acc_visitor_nic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_acc_visitor_nicActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setText("Telephone");
+
+        txt_acc_visitor_telephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_acc_visitor_telephone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_acc_visitor_telephoneActionPerformed(evt);
+            }
+        });
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel29.setText("E-mail");
+
+        txt_acc_visitor_email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_acc_visitor_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_acc_visitor_emailActionPerformed(evt);
+            }
+        });
+
+        txt_acc_visitor_address.setColumns(20);
+        txt_acc_visitor_address.setRows(5);
+        jScrollPane3.setViewportView(txt_acc_visitor_address);
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel30.setText("Address");
+
+        panel_acc_visitor_img.setBackground(new java.awt.Color(153, 0, 0));
+
+        javax.swing.GroupLayout panel_acc_visitor_imgLayout = new javax.swing.GroupLayout(panel_acc_visitor_img);
+        panel_acc_visitor_img.setLayout(panel_acc_visitor_imgLayout);
+        panel_acc_visitor_imgLayout.setHorizontalGroup(
+            panel_acc_visitor_imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 239, Short.MAX_VALUE)
+        );
+        panel_acc_visitor_imgLayout.setVerticalGroup(
+            panel_acc_visitor_imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 345, Short.MAX_VALUE)
+        );
+
+        btn_acc_visitor_add.setBackground(new java.awt.Color(0, 153, 153));
+        btn_acc_visitor_add.setText("Add");
+        btn_acc_visitor_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_acc_visitor_addActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_add_visitorLayout = new javax.swing.GroupLayout(panel_add_visitor);
+        panel_add_visitor.setLayout(panel_add_visitorLayout);
+        panel_add_visitorLayout.setHorizontalGroup(
+            panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_acc_visitor_email)
+                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txt_acc_visitor_nic, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28)
+                            .addComponent(txt_acc_visitor_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel29)
+                            .addComponent(jLabel30)
+                            .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_acc_visitor_full_name)
+                                .addComponent(jLabel26)
+                                .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                                    .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(combo_acc_visitor_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel23))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                                            .addComponent(jLabel24)
+                                            .addGap(157, 157, 157)
+                                            .addComponent(jLabel25))
+                                        .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                                            .addComponent(txt_acc_visitor_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(10, 10, 10)
+                                            .addComponent(txt_acc_visitor_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addGap(112, 112, 112)
+                .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
+            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                .addGap(700, 700, 700)
+                .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panel_add_visitorLayout.setVerticalGroup(
+            panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel25))
+                        .addGap(11, 11, 11)
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_acc_visitor_title, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_acc_visitor_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_acc_visitor_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel26)
+                        .addGap(11, 11, 11)
+                        .addComponent(txt_acc_visitor_full_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(jLabel28))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_acc_visitor_telephone)
+                            .addComponent(txt_acc_visitor_nic, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel29)
+                            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(txt_acc_visitor_email, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                        .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))))
+        );
+
+        panel_body.add(panel_add_visitor, "card5");
+
         panel_add_lecturer.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -584,7 +794,6 @@ public class IMAccess extends javax.swing.JFrame {
             .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
                     .addComponent(txt_acc_lec_email)
                     .addGroup(panel_add_lecturerLayout.createSequentialGroup()
                         .addGroup(panel_add_lecturerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,7 +826,8 @@ public class IMAccess extends javax.swing.JFrame {
                                             .addComponent(txt_acc_lec_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(10, 10, 10)
                                             .addComponent(txt_acc_lec_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addGap(112, 112, 112)
                 .addComponent(panel_acc_user_img1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93))
@@ -898,6 +1108,43 @@ public class IMAccess extends javax.swing.JFrame {
         panel_body.revalidate();
     }//GEN-LAST:event_btn_rbn_att_sheetActionPerformed
 
+    private void combo_acc_visitor_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_acc_visitor_titleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_acc_visitor_titleActionPerformed
+
+    private void txt_acc_visitor_full_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_visitor_full_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_acc_visitor_full_nameActionPerformed
+
+    private void txt_acc_visitor_nicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_visitor_nicActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_acc_visitor_nicActionPerformed
+
+    private void txt_acc_visitor_telephoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_visitor_telephoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_acc_visitor_telephoneActionPerformed
+
+    private void txt_acc_visitor_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_visitor_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_acc_visitor_emailActionPerformed
+
+    private void btn_acc_visitor_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_visitor_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
+
+    private void btn_rbnI_add_visitor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_add_visitor1ActionPerformed
+        
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        panel_body.add(panel_add_visitor);
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        
+    }//GEN-LAST:event_btn_rbnI_add_visitor1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -938,6 +1185,7 @@ public class IMAccess extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_acc_user_add;
     private javax.swing.JButton btn_acc_user_add1;
+    private javax.swing.JButton btn_acc_visitor_add;
     private javax.swing.JButton btn_rbnI_add_lecturer;
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
@@ -950,6 +1198,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_acc_user_month;
     private javax.swing.JComboBox<String> combo_acc_user_title;
     private javax.swing.JComboBox<String> combo_acc_user_year;
+    private javax.swing.JComboBox<String> combo_acc_visitor_title;
     private javax.swing.JComboBox<String> combo_att_gen_sheet_ac_yr;
     private com.toedter.calendar.JDateChooser combo_att_gen_sheet_date;
     private javax.swing.JComboBox<String> combo_att_gen_sheet_degree;
@@ -970,7 +1219,15 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -981,10 +1238,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel panel_acc_user_img;
     private javax.swing.JPanel panel_acc_user_img1;
+    private javax.swing.JPanel panel_acc_visitor_img;
     private javax.swing.JPanel panel_add_lecturer;
     private javax.swing.JPanel panel_add_student;
+    private javax.swing.JPanel panel_add_visitor;
     private javax.swing.JPanel panel_body;
     private javax.swing.JPanel panel_genarate_att_sheet;
     private javax.swing.JPanel panel_rbn_Attendance;
@@ -1005,6 +1265,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JTextField txt_acc_user_last_name;
     private javax.swing.JTextField txt_acc_user_stu_no;
     private javax.swing.JTextField txt_acc_user_telephone;
+    private javax.swing.JTextArea txt_acc_visitor_address;
+    private javax.swing.JTextField txt_acc_visitor_email;
+    private javax.swing.JTextField txt_acc_visitor_first_name;
+    private javax.swing.JTextField txt_acc_visitor_full_name;
+    private javax.swing.JTextField txt_acc_visitor_last_name;
+    private javax.swing.JTextField txt_acc_visitor_nic;
+    private javax.swing.JTextField txt_acc_visitor_telephone;
     // End of variables declaration//GEN-END:variables
 
     int getIDOfAcedamicYear(String s){
