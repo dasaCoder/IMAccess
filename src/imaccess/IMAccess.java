@@ -15,6 +15,7 @@ import models.Degree;
 import models.Lecturer;
 import org.hibernate.Query;
 import models.Student;
+import models.Visitor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -31,14 +32,18 @@ public class IMAccess extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     
+    String selected_table_category = "Student";
+    
     ApplicationContext ctx = new ClassPathXmlApplicationContext("SpringXMLConfig.xml");
     Student student = (Student) ctx.getBean("student");
     Lecturer lecturer = (Lecturer) ctx.getBean("lecturer");
     AcedamicYear acedamicYear = (AcedamicYear) ctx.getBean("acedamicYear");
     Degree degree = (Degree) ctx.getBean("degree");
-    
+    Visitor visitor = (Visitor) ctx.getBean("visitor");
+    Session session;
     List<AcedamicYear> acedamicYearList;
     List<Degree> degreeList;
+    List<Student> stdList;
     
     public IMAccess() {
         try {
@@ -60,7 +65,7 @@ public class IMAccess extends javax.swing.JFrame {
         }
         initComponents();
         
-        Session session = sessionFactory().openSession();
+        session = sessionFactory().openSession();
         session.beginTransaction();
         
         
@@ -113,6 +118,8 @@ public class IMAccess extends javax.swing.JFrame {
         rbn_student = new javax.swing.JButton();
         btn_rbn_accounts = new javax.swing.JButton();
         rbn_attendance = new javax.swing.JButton();
+        txt_search = new javax.swing.JTextField();
+        btn_search = new javax.swing.JButton();
         panel_body = new javax.swing.JPanel();
         panel_add_student = new javax.swing.JPanel();
         txt_acc_user_first_name = new javax.swing.JTextField();
@@ -180,6 +187,10 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_acc_lec_address = new javax.swing.JTextArea();
+        panel_search_result = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
         panel_genarate_att_sheet = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         combo_att_gen_sheet_degree = new javax.swing.JComboBox<>();
@@ -273,6 +284,17 @@ public class IMAccess extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rbn_attendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 190, 30));
+
+        txt_search.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel2.add(txt_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 7, 240, 30));
+
+        btn_search.setText("s");
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btn_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 7, 50, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 130));
 
@@ -604,7 +626,7 @@ public class IMAccess extends javax.swing.JFrame {
         panel_add_visitor.setLayout(panel_add_visitorLayout);
         panel_add_visitorLayout.setHorizontalGroup(
             panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_add_visitorLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_add_visitorLayout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_acc_visitor_email)
@@ -641,19 +663,22 @@ public class IMAccess extends javax.swing.JFrame {
                                             .addComponent(txt_acc_visitor_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3))
-                .addGap(112, 112, 112)
-                .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
-            .addGroup(panel_add_visitorLayout.createSequentialGroup()
-                .addGap(700, 700, 700)
-                .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_add_visitorLayout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(93, 93, 93))
+                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panel_add_visitorLayout.setVerticalGroup(
             panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_add_visitorLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel_add_visitorLayout.createSequentialGroup()
                         .addGroup(panel_add_visitorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
@@ -685,13 +710,10 @@ public class IMAccess extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel_add_visitorLayout.createSequentialGroup()
-                        .addComponent(panel_acc_visitor_img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                        .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
 
         panel_body.add(panel_add_visitor, "card5");
@@ -882,6 +904,48 @@ public class IMAccess extends javax.swing.JFrame {
         );
 
         panel_body.add(panel_add_lecturer, "card3");
+
+        panel_search_result.setLayout(new javax.swing.BoxLayout(panel_search_result, javax.swing.BoxLayout.LINE_AXIS));
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Full Name", "Student No", "Academic Year", "Degree", "Telephone"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setRowHeight(37);
+        jScrollPane4.setViewportView(jTable1);
+
+        panel_search_result.add(jScrollPane4);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 543, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        panel_search_result.add(jPanel3);
+
+        panel_body.add(panel_search_result, "card6");
 
         panel_genarate_att_sheet.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1129,7 +1193,22 @@ public class IMAccess extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_acc_visitor_emailActionPerformed
 
     private void btn_acc_visitor_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_visitor_addActionPerformed
-        // TODO add your handling code here:
+        
+        
+        visitor.setTitle(combo_acc_visitor_title.getSelectedItem().toString());
+        visitor.setFirst_name(txt_acc_visitor_first_name.getText());
+        visitor.setLast_name(txt_acc_visitor_last_name.getText());
+        visitor.setFull_name(txt_acc_visitor_full_name.getText());
+        visitor.setTelephone(Integer.parseInt(txt_acc_visitor_telephone.getText()));
+        visitor.setAddress(txt_acc_visitor_address.getText());
+        visitor.setEmail(txt_acc_visitor_email.getText());
+        visitor.setNic_no(txt_acc_visitor_nic.getText());
+        
+        Session session = sessionFactory().openSession();
+                
+                session.beginTransaction();
+                session.save(visitor);
+                session.getTransaction().commit();
     }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
 
     private void btn_rbnI_add_visitor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_add_visitor1ActionPerformed
@@ -1144,6 +1223,16 @@ public class IMAccess extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btn_rbnI_add_visitor1ActionPerformed
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        String query = "from "+ selected_table_category + " WHERE full_name like '%"+ (String)txt_search.getText() +"%'";
+        Query personResult = session.createQuery(query);
+        stdList = personResult.list();
+        for(Student std:stdList){
+            System.out.println(std.getFirst_name());
+        }
+        
+    }//GEN-LAST:event_btn_searchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1191,6 +1280,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_rbnI_add_visitor1;
     private javax.swing.JButton btn_rbn_accounts;
     private javax.swing.JButton btn_rbn_att_sheet;
+    private javax.swing.JButton btn_search;
     private javax.swing.JComboBox<String> combo_acc_lec_title;
     private javax.swing.JComboBox<String> combo_acc_user_acedamic_yr;
     private javax.swing.JComboBox<String> combo_acc_user_day;
@@ -1236,9 +1326,12 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panel_acc_user_img;
     private javax.swing.JPanel panel_acc_user_img1;
     private javax.swing.JPanel panel_acc_visitor_img;
@@ -1250,6 +1343,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel panel_rbn_Attendance;
     private javax.swing.JPanel panel_rbn_accounts;
     private javax.swing.JPanel panel_rbn_body;
+    private javax.swing.JPanel panel_search_result;
     private javax.swing.JButton rbn_attendance;
     private javax.swing.JButton rbn_student;
     private javax.swing.JTextArea txt_acc_lec_address;
@@ -1272,6 +1366,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JTextField txt_acc_visitor_last_name;
     private javax.swing.JTextField txt_acc_visitor_nic;
     private javax.swing.JTextField txt_acc_visitor_telephone;
+    private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 
     int getIDOfAcedamicYear(String s){

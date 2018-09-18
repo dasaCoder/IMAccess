@@ -58,6 +58,7 @@ Contributor(s):
     <mapping class="models.Lecturer"/>
     <mapping class="models.AcedamicYear"/>
     <mapping class="models.Degree"/>
+    <mapping class="models.Visitor"/>
     
   </session-factory>
 </hibernate-configuration>

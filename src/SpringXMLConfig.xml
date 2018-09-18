@@ -16,5 +16,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
         
     <bean id="degree" class="models.Degree" >
         </bean>
+        
+        <bean id="visitor" class="models.Visitor" >
+        </bean>
  
 </beans>
