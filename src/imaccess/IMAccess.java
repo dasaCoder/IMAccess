@@ -6,6 +6,7 @@
 package imaccess;
 
 
+import Queries.VisitorQuery;
 import java.util.List;
 import javax.swing.JList;
 import javax.swing.UIManager;
@@ -44,6 +45,7 @@ public class IMAccess extends javax.swing.JFrame {
     List<AcedamicYear> acedamicYearList;
     List<Degree> degreeList;
     List<Student> stdList;
+    VisitorQuery vQuery;
     
     public IMAccess() {
         try {
@@ -1194,7 +1196,7 @@ public class IMAccess extends javax.swing.JFrame {
 
     private void btn_acc_visitor_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_visitor_addActionPerformed
         
-        
+       
         visitor.setTitle(combo_acc_visitor_title.getSelectedItem().toString());
         visitor.setFirst_name(txt_acc_visitor_first_name.getText());
         visitor.setLast_name(txt_acc_visitor_last_name.getText());
@@ -1209,6 +1211,15 @@ public class IMAccess extends javax.swing.JFrame {
                 session.beginTransaction();
                 session.save(visitor);
                 session.getTransaction().commit();
+                
+                vQuery = new VisitorQuery();
+                vQuery.setAccess(3);
+                
+        
+
+        
+                
+        
     }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
 
     private void btn_rbnI_add_visitor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_add_visitor1ActionPerformed
@@ -1228,6 +1239,8 @@ public class IMAccess extends javax.swing.JFrame {
         String query = "from "+ selected_table_category + " WHERE full_name like '%"+ (String)txt_search.getText() +"%'";
         Query personResult = session.createQuery(query);
         stdList = personResult.list();
+        
+        
         for(Student std:stdList){
             System.out.println(std.getFirst_name());
         }
