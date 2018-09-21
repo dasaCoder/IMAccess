@@ -50,4 +50,35 @@ public class LectureQueries {
         
     }
     
+    public boolean arrangeLecture(String sbj, String lec, String start, String End, String Date, String degree, String academicYr){
+        String sql = "INSERT INTO `subject_record` (`id`, `subject_id`, `lecturer_id`, `start_time`, `end_time`, `academic_id`, `date`, `degree_id`)" +
+                        "VALUES (NULL," +
+                        "(SELECT id FROM `subjects` WHERE code = ?)," +
+                        "(SELECT id FROM `lecturers` WHERE full_name = ?)," +
+                        "?," +
+                        "?," +
+                        "(SELECT id FROM `academic_years` WHERE academic_year = ?)," +
+                        "?," +
+                        "(SELECT id FROM `degrees` WHERE short_name = ?)" +
+                        ")";
+        
+        try {
+            
+            pst = con.prepareStatement(sql);
+            pst.setString(1, sbj);
+            pst.setString(2,lec);
+            pst.setString(3,start);
+            pst.setString(4,End);
+            pst.setString(5, academicYr);
+            pst.setString(6,Date);
+            pst.setString(7,degree);
+            
+            return pst.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
 }

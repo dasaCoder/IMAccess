@@ -60,6 +60,7 @@ public class IMAccess extends javax.swing.JFrame {
     List<AcedamicYear> acedamicYearList;
     List<Degree> degreeList;
     List<Student> stdList;
+    List<Lecturer> lecList;
     
         
     VisitorQuery vQuery;
@@ -107,7 +108,13 @@ public class IMAccess extends javax.swing.JFrame {
                 combo_acc_user_degree.addItem(dgr.getShort_name());
                 combo_att_gen_sheet_degree.addItem(dgr.getShort_name());
             }
+        Query query3 = session.createQuery("from Lecturer");
         
+        lecList = query3.list();
+        
+            for(Lecturer lc:lecList){
+                combo_att_gen_sheet_lec.addItem(lc.getFull_name());
+            }
         
         
     }
@@ -256,6 +263,8 @@ public class IMAccess extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tbl_att_std_list = new javax.swing.JTable();
+        jLabel38 = new javax.swing.JLabel();
+        combo_att_gen_sheet_lec = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -1288,6 +1297,11 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel37.setText("To");
 
         jButton1.setText("Arrange Lecture");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tbl_att_std_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1317,48 +1331,51 @@ public class IMAccess extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tbl_att_std_list);
 
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel38.setText("Lecturer");
+
         javax.swing.GroupLayout panel_genarate_att_sheetLayout = new javax.swing.GroupLayout(panel_genarate_att_sheet);
         panel_genarate_att_sheet.setLayout(panel_genarate_att_sheetLayout);
         panel_genarate_att_sheetLayout.setHorizontalGroup(
             panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
                 .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20))
+                        .addGap(31, 31, 31)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19)
+                            .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
                         .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel20))
-                                .addGap(31, 31, 31)
-                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19)
-                                    .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(combo_att_gen_sheet_from_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel35)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combo_att_gen_sheet_from_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel21))
+                        .addGap(50, 50, 50)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                                        .addComponent(combo_att_gen_sheet_from_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel35)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(combo_att_gen_sheet_from_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel21))
-                                .addGap(50, 50, 50)
-                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                                        .addComponent(combo_att_gen_sheet_To_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel36)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(combo_att_gen_sheet_To_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel37)))
-                            .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18)))
+                                .addComponent(combo_att_gen_sheet_To_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combo_att_gen_sheet_To_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel37)))
+                    .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
                     .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                        .addGap(161, 161, 161)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_att_gen_sheet_lec, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         panel_genarate_att_sheetLayout.setVerticalGroup(
@@ -1374,7 +1391,11 @@ public class IMAccess extends javax.swing.JFrame {
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(17, 17, 17)
+                .addComponent(jLabel38)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(combo_att_gen_sheet_lec, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1775,6 +1796,11 @@ public class IMAccess extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_stg_lectureActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        lQuery = new LectureQueries();
+        lQuery.arrangeLecture("SENG31255", combo_att_gen_sheet_lec.getSelectedItem().toString(), (combo_att_gen_sheet_from_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), (combo_att_gen_sheet_To_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), combo_att_gen_sheet_date.getDate().toString(), combo_att_gen_sheet_degree.getSelectedItem().toString(), combo_att_gen_sheet_ac_yr.getSelectedItem().toString());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1842,6 +1868,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_att_gen_sheet_degree;
     private javax.swing.JSpinner combo_att_gen_sheet_from_H;
     private javax.swing.JSpinner combo_att_gen_sheet_from_M;
+    private javax.swing.JComboBox<String> combo_att_gen_sheet_lec;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1874,6 +1901,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
