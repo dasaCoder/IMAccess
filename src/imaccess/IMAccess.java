@@ -6,8 +6,16 @@
 package imaccess;
 
 
+import Queries.LectureQueries;
 import Queries.VisitorQuery;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -35,36 +43,47 @@ public class IMAccess extends javax.swing.JFrame {
     
     String selected_table_category = "Student";
     
+    int selectedUser = 0;
+    
     ApplicationContext ctx = new ClassPathXmlApplicationContext("SpringXMLConfig.xml");
+    
     Student student = (Student) ctx.getBean("student");
     Lecturer lecturer = (Lecturer) ctx.getBean("lecturer");
     AcedamicYear acedamicYear = (AcedamicYear) ctx.getBean("acedamicYear");
     Degree degree = (Degree) ctx.getBean("degree");
     Visitor visitor = (Visitor) ctx.getBean("visitor");
+    
+    
     Session session;
+    
+    
     List<AcedamicYear> acedamicYearList;
     List<Degree> degreeList;
     List<Student> stdList;
+    
+        
     VisitorQuery vQuery;
+    LectureQueries lQuery;
+    
     
     public IMAccess() {
-        try {
-            // Set System L&F
-            UIManager.setLookAndFeel(
-                UIManager.getSystemLookAndFeelClassName());
-        } 
-        catch (UnsupportedLookAndFeelException e) {
-           // handle exception
-        }
-        catch (ClassNotFoundException e) {
-           // handle exception
-        }
-        catch (InstantiationException e) {
-           // handle exception
-        }
-        catch (IllegalAccessException e) {
-           // handle exception
-        }
+//        try {
+//            // Set System L&F
+////            UIManager.setLookAndFeel(
+////                UIManager.getSystemLookAndFeelClassName());
+//        } 
+//        catch (UnsupportedLookAndFeelException e) {
+//           // handle exception
+//        }
+//        catch (ClassNotFoundException e) {
+//           // handle exception
+//        }
+//        catch (InstantiationException e) {
+//           // handle exception
+//        }
+//        catch (IllegalAccessException e) {
+//           // handle exception
+//        }
         initComponents();
         
         session = sessionFactory().openSession();
@@ -115,9 +134,12 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbnI_add_visitor1 = new javax.swing.JButton();
         btn_rbnI_add_stuent = new javax.swing.JButton();
         btn_rbnI_add_lecturer = new javax.swing.JButton();
+        panel_rbn_settings = new javax.swing.JPanel();
+        btn_rbn_stgs_update_access = new javax.swing.JButton();
+        btn_rbn_stgs_set_lec = new javax.swing.JButton();
         panel_rbn_Attendance = new javax.swing.JPanel();
-        btn_rbn_att_sheet = new javax.swing.JButton();
-        rbn_student = new javax.swing.JButton();
+        btn_rbn_att_gen_report = new javax.swing.JButton();
+        rbn_settings = new javax.swing.JButton();
         btn_rbn_accounts = new javax.swing.JButton();
         rbn_attendance = new javax.swing.JButton();
         txt_search = new javax.swing.JTextField();
@@ -193,6 +215,29 @@ public class IMAccess extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        panel_update_access = new javax.swing.JPanel();
+        panel_access_side_bar = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        btn_access_floor2 = new javax.swing.JButton();
+        btn_access_floor1 = new javax.swing.JButton();
+        panel_access_body = new javax.swing.JPanel();
+        panel_access_floor1 = new javax.swing.JPanel();
+        upt_acc_toggle_b_1 = new javax.swing.JToggleButton();
+        upt_acc_toggle_b_4 = new javax.swing.JToggleButton();
+        upt_acc_toggle_b_2 = new javax.swing.JToggleButton();
+        upt_acc_toggle_b_3 = new javax.swing.JToggleButton();
+        lbl_floor1 = new javax.swing.JLabel();
+        panel_set_lecture = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        txt_stg_lecture_name = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        txt_stg_lecture_code = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txt_stg_lecture_des = new javax.swing.JTextArea();
+        btn_stg_lecture = new javax.swing.JButton();
         panel_genarate_att_sheet = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         combo_att_gen_sheet_degree = new javax.swing.JComboBox<>();
@@ -201,8 +246,16 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         combo_att_gen_sheet_date = new com.toedter.calendar.JDateChooser();
         jLabel21 = new javax.swing.JLabel();
-        combo_att_gen_sheet_from = new javax.swing.JTextField();
-        combo_att_gen_sheet_from_AM = new javax.swing.JSpinner();
+        combo_att_gen_sheet_from_M = new javax.swing.JSpinner();
+        combo_att_gen_sheet_from_H = new javax.swing.JSpinner();
+        jLabel35 = new javax.swing.JLabel();
+        combo_att_gen_sheet_To_H = new javax.swing.JSpinner();
+        combo_att_gen_sheet_To_M = new javax.swing.JSpinner();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tbl_att_std_list = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -253,23 +306,76 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_rbn_body.add(panel_rbn_accounts, "card2");
 
+        btn_rbn_stgs_update_access.setBackground(new java.awt.Color(243, 243, 243));
+        btn_rbn_stgs_update_access.setText("Update Acess");
+        btn_rbn_stgs_update_access.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_rbn_stgs_update_accessMouseClicked(evt);
+            }
+        });
+        btn_rbn_stgs_update_access.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbn_stgs_update_accessActionPerformed(evt);
+            }
+        });
+
+        btn_rbn_stgs_set_lec.setBackground(new java.awt.Color(243, 243, 243));
+        btn_rbn_stgs_set_lec.setText("Set Lecture");
+        btn_rbn_stgs_set_lec.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_rbn_stgs_set_lecMouseClicked(evt);
+            }
+        });
+        btn_rbn_stgs_set_lec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbn_stgs_set_lecActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_rbn_settingsLayout = new javax.swing.GroupLayout(panel_rbn_settings);
+        panel_rbn_settings.setLayout(panel_rbn_settingsLayout);
+        panel_rbn_settingsLayout.setHorizontalGroup(
+            panel_rbn_settingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_rbn_settingsLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(btn_rbn_stgs_update_access, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_rbn_stgs_set_lec, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(594, Short.MAX_VALUE))
+        );
+        panel_rbn_settingsLayout.setVerticalGroup(
+            panel_rbn_settingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_rbn_settingsLayout.createSequentialGroup()
+                .addGroup(panel_rbn_settingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_rbn_stgs_update_access, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_rbn_stgs_set_lec, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panel_rbn_body.add(panel_rbn_settings, "card4");
+
         panel_rbn_Attendance.setBackground(new java.awt.Color(255, 255, 255));
         panel_rbn_Attendance.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_rbn_att_sheet.setText("Generate Attendance Sheet");
-        btn_rbn_att_sheet.addActionListener(new java.awt.event.ActionListener() {
+        btn_rbn_att_gen_report.setText("Genarate Attendance Sheet");
+        btn_rbn_att_gen_report.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_rbn_att_sheetActionPerformed(evt);
+                btn_rbn_att_gen_reportActionPerformed(evt);
             }
         });
-        panel_rbn_Attendance.add(btn_rbn_att_sheet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 80));
+        panel_rbn_Attendance.add(btn_rbn_att_gen_report, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 80));
 
         panel_rbn_body.add(panel_rbn_Attendance, "card3");
 
         jPanel2.add(panel_rbn_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1010, 80));
 
-        rbn_student.setText("Student");
-        jPanel2.add(rbn_student, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 190, 30));
+        rbn_settings.setText("Settings");
+        rbn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbn_settingsActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rbn_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 190, 30));
 
         btn_rbn_accounts.setText("Accounts");
         btn_rbn_accounts.addActionListener(new java.awt.event.ActionListener() {
@@ -713,9 +819,9 @@ public class IMAccess extends javax.swing.JFrame {
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_acc_visitor_add, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addGap(117, 117, 117))
         );
 
         panel_body.add(panel_add_visitor, "card5");
@@ -949,6 +1055,215 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.add(panel_search_result, "card6");
 
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1010, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        panel_body.add(jPanel5, "card9");
+
+        panel_update_access.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel_access_side_bar.setBackground(new java.awt.Color(0, 153, 102));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 179, Short.MAX_VALUE)
+        );
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Dilusha Dasanayaka");
+
+        btn_access_floor2.setText("Floor 2");
+
+        btn_access_floor1.setText("Floor 1");
+        btn_access_floor1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_access_floor1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_access_side_barLayout = new javax.swing.GroupLayout(panel_access_side_bar);
+        panel_access_side_bar.setLayout(panel_access_side_barLayout);
+        panel_access_side_barLayout.setHorizontalGroup(
+            panel_access_side_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                .addGroup(panel_access_side_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_access_floor2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(panel_access_side_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(btn_access_floor1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(26, Short.MAX_VALUE)))
+        );
+        panel_access_side_barLayout.setVerticalGroup(
+            panel_access_side_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(btn_access_floor2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(242, Short.MAX_VALUE))
+            .addGroup(panel_access_side_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_access_side_barLayout.createSequentialGroup()
+                    .addGap(271, 271, 271)
+                    .addComponent(btn_access_floor1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(292, Short.MAX_VALUE)))
+        );
+
+        panel_update_access.add(panel_access_side_bar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, -1));
+
+        panel_access_body.setBackground(new java.awt.Color(255, 255, 255));
+        panel_access_body.setLayout(new java.awt.CardLayout());
+
+        panel_access_floor1.setLayout(null);
+
+        upt_acc_toggle_b_1.setText("Allow");
+        upt_acc_toggle_b_1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upt_acc_toggle_b_1ActionPerformed(evt);
+            }
+        });
+        panel_access_floor1.add(upt_acc_toggle_b_1);
+        upt_acc_toggle_b_1.setBounds(90, 90, 92, 31);
+
+        upt_acc_toggle_b_4.setText("Allow");
+        upt_acc_toggle_b_4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upt_acc_toggle_b_4ActionPerformed(evt);
+            }
+        });
+        panel_access_floor1.add(upt_acc_toggle_b_4);
+        upt_acc_toggle_b_4.setBounds(380, 70, 92, 31);
+
+        upt_acc_toggle_b_2.setText("Allow");
+        upt_acc_toggle_b_2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upt_acc_toggle_b_2ActionPerformed(evt);
+            }
+        });
+        panel_access_floor1.add(upt_acc_toggle_b_2);
+        upt_acc_toggle_b_2.setBounds(30, 330, 92, 31);
+
+        upt_acc_toggle_b_3.setText("Allow");
+        upt_acc_toggle_b_3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upt_acc_toggle_b_3ActionPerformed(evt);
+            }
+        });
+        panel_access_floor1.add(upt_acc_toggle_b_3);
+        upt_acc_toggle_b_3.setBounds(30, 490, 92, 31);
+        panel_access_floor1.add(lbl_floor1);
+        lbl_floor1.setBounds(0, 0, 770, 600);
+
+        panel_access_body.add(panel_access_floor1, "card2");
+
+        panel_update_access.add(panel_access_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(229, 0, 780, 600));
+
+        panel_body.add(panel_update_access, "card7");
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel32.setText("Lecture Title");
+
+        txt_stg_lecture_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_stg_lecture_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_stg_lecture_nameActionPerformed(evt);
+            }
+        });
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel33.setText("Lecture Code");
+
+        txt_stg_lecture_code.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel34.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel34.setText("Description");
+
+        txt_stg_lecture_des.setColumns(20);
+        txt_stg_lecture_des.setRows(5);
+        jScrollPane5.setViewportView(txt_stg_lecture_des);
+
+        btn_stg_lecture.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btn_stg_lecture.setText("Add Lecture");
+        btn_stg_lecture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_stg_lectureActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_set_lectureLayout = new javax.swing.GroupLayout(panel_set_lecture);
+        panel_set_lecture.setLayout(panel_set_lectureLayout);
+        panel_set_lectureLayout.setHorizontalGroup(
+            panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                        .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel32))
+                        .addGap(810, 832, Short.MAX_VALUE))
+                    .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                        .addComponent(jLabel34)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                        .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_stg_lecture_code, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_stg_lecture_name))
+                        .addGap(404, 404, 404))
+                    .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(btn_stg_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        panel_set_lectureLayout.setVerticalGroup(
+            panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jLabel32)
+                .addGap(11, 11, 11)
+                .addComponent(txt_stg_lecture_name, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel33)
+                .addGap(13, 13, 13)
+                .addComponent(txt_stg_lecture_code, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_stg_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        panel_body.add(panel_set_lecture, "card8");
+
         panel_genarate_att_sheet.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -963,38 +1278,93 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel21.setText("From");
 
+        jLabel35.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel35.setText(":");
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel36.setText(":");
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel37.setText("To");
+
+        jButton1.setText("Arrange Lecture");
+
+        tbl_att_std_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Student ID", "Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(tbl_att_std_list);
+
         javax.swing.GroupLayout panel_genarate_att_sheetLayout = new javax.swing.GroupLayout(panel_genarate_att_sheet);
         panel_genarate_att_sheet.setLayout(panel_genarate_att_sheetLayout);
         panel_genarate_att_sheetLayout.setHorizontalGroup(
             panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
                 .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
                     .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel18)
-                            .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20))
-                        .addGap(31, 31, 31)
+                        .addGap(61, 61, 61)
                         .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20))
+                                .addGap(31, 31, 31)
+                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(combo_att_gen_sheet_ac_yr, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                                        .addComponent(combo_att_gen_sheet_from_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel35)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(combo_att_gen_sheet_from_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel21))
+                                .addGap(50, 50, 50)
+                                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                                        .addComponent(combo_att_gen_sheet_To_H, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel36)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(combo_att_gen_sheet_To_M, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel37)))
+                            .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)))
                     .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                        .addComponent(combo_att_gen_sheet_from, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(combo_att_gen_sheet_from_AM, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(413, Short.MAX_VALUE))
+                        .addGap(161, 161, 161)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         panel_genarate_att_sheetLayout.setVerticalGroup(
             panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(61, 61, 61)
                 .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
                         .addComponent(jLabel19)
@@ -1004,13 +1374,33 @@ public class IMAccess extends javax.swing.JFrame {
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(combo_att_gen_sheet_degree, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(combo_att_gen_sheet_from_AM, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(combo_att_gen_sheet_from))
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(combo_att_gen_sheet_date, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combo_att_gen_sheet_from_H, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_att_gen_sheet_from_M, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_genarate_att_sheetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combo_att_gen_sheet_To_H, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_att_gen_sheet_To_M, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(36, 36, 36)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panel_genarate_att_sheetLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panel_body.add(panel_genarate_att_sheet, "card4");
@@ -1044,7 +1434,7 @@ public class IMAccess extends javax.swing.JFrame {
 
     private void rbn_attendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbn_attendanceActionPerformed
         // TODO add your handling code here:
-        System.out.println("accounts");
+        //System.out.println("accounts");
         panel_rbn_body.removeAll();
         panel_rbn_body.repaint();
         panel_rbn_body.revalidate();
@@ -1164,7 +1554,7 @@ public class IMAccess extends javax.swing.JFrame {
         panel_body.revalidate();
     }//GEN-LAST:event_btn_rbnI_add_lecturerMouseClicked
 
-    private void btn_rbn_att_sheetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_sheetActionPerformed
+    private void btn_rbn_att_gen_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_gen_reportActionPerformed
         panel_body.removeAll();
         panel_body.repaint();
         panel_body.revalidate();
@@ -1172,7 +1562,7 @@ public class IMAccess extends javax.swing.JFrame {
         panel_body.add(panel_genarate_att_sheet);
         panel_body.repaint();
         panel_body.revalidate();
-    }//GEN-LAST:event_btn_rbn_att_sheetActionPerformed
+    }//GEN-LAST:event_btn_rbn_att_gen_reportActionPerformed
 
     private void combo_acc_visitor_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_acc_visitor_titleActionPerformed
         // TODO add your handling code here:
@@ -1213,12 +1603,8 @@ public class IMAccess extends javax.swing.JFrame {
                 session.getTransaction().commit();
                 
                 vQuery = new VisitorQuery();
-                vQuery.setAccess(3);
-                
-        
-
-        
-                
+                vQuery.setAccess(vQuery.getLastUserId());
+                            
         
     }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
 
@@ -1246,6 +1632,148 @@ public class IMAccess extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void btn_rbn_stgs_update_accessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rbn_stgs_update_accessMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_rbn_stgs_update_accessMouseClicked
+
+    private void btn_rbn_stgs_update_accessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_stgs_update_accessActionPerformed
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        panel_body.add(panel_update_access);
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        vQuery = new VisitorQuery();
+        selectedUser = 2;
+    }//GEN-LAST:event_btn_rbn_stgs_update_accessActionPerformed
+
+    private void rbn_settingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbn_settingsActionPerformed
+        
+        panel_rbn_body.removeAll();
+        panel_rbn_body.repaint();
+        panel_rbn_body.revalidate();
+        
+        panel_rbn_body.add(panel_rbn_settings);
+        panel_rbn_body.repaint();
+        panel_rbn_body.revalidate();
+    }//GEN-LAST:event_rbn_settingsActionPerformed
+
+    private void upt_acc_toggle_b_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upt_acc_toggle_b_1ActionPerformed
+        
+        if(upt_acc_toggle_b_1.isSelected()){
+            if(vQuery.updateAcess(selectedUser, 1, true)){
+                upt_acc_toggle_b_1.setText("Allowed");
+                upt_acc_toggle_b_1.setBackground(Color.GREEN);
+            }
+            
+        } else{
+            if(vQuery.updateAcess(selectedUser, 1, false)){
+                upt_acc_toggle_b_1.setText("Not Allowed");
+                upt_acc_toggle_b_1.setBackground(Color.RED);
+            }
+        }
+    }//GEN-LAST:event_upt_acc_toggle_b_1ActionPerformed
+
+    private void btn_access_floor1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_access_floor1ActionPerformed
+       panel_access_body.removeAll();
+       panel_access_body.repaint();
+       panel_access_body.revalidate();
+      
+       BufferedImage bimg = null;
+       
+       try {
+            bimg = ImageIO.read(this.getClass().getResource("/images/floor/f1.png"));
+            
+            Image dimg = bimg.getScaledInstance(lbl_floor1.getWidth(), lbl_floor1.getHeight(),Image.SCALE_SMOOTH);
+            
+            ImageIcon imageIcon = new ImageIcon(dimg);
+            
+            lbl_floor1.setIcon(imageIcon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       
+       panel_access_body.add(panel_access_floor1);
+       panel_access_body.repaint();
+       panel_access_body.revalidate();
+    }//GEN-LAST:event_btn_access_floor1ActionPerformed
+
+    private void upt_acc_toggle_b_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upt_acc_toggle_b_4ActionPerformed
+        if(upt_acc_toggle_b_4.isSelected()){
+            if(vQuery.updateAcess(selectedUser, 4, true)){
+                upt_acc_toggle_b_4.setText("Allowed");
+                upt_acc_toggle_b_4.setBackground(Color.GREEN);
+            }
+            
+        } else{
+            if(vQuery.updateAcess(selectedUser, 4, false)){
+                upt_acc_toggle_b_4.setText("Not Allowed");
+                upt_acc_toggle_b_4.setBackground(Color.RED);
+            }
+        }
+    }//GEN-LAST:event_upt_acc_toggle_b_4ActionPerformed
+
+    private void upt_acc_toggle_b_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upt_acc_toggle_b_2ActionPerformed
+        if(upt_acc_toggle_b_2.isSelected()){
+            if(vQuery.updateAcess(selectedUser, 2, true)){
+                upt_acc_toggle_b_2.setText("Allowed");
+                upt_acc_toggle_b_2.setBackground(Color.GREEN);
+            }
+            
+        } else{
+            if(vQuery.updateAcess(selectedUser, 2, false)){
+                upt_acc_toggle_b_2.setText("Not Allowed");
+                upt_acc_toggle_b_2.setBackground(Color.RED);
+            }
+        }
+    }//GEN-LAST:event_upt_acc_toggle_b_2ActionPerformed
+
+    private void upt_acc_toggle_b_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upt_acc_toggle_b_3ActionPerformed
+        if(upt_acc_toggle_b_3.isSelected()){
+            if(vQuery.updateAcess(selectedUser, 1, true)){
+                upt_acc_toggle_b_3.setText("Allowed");
+                upt_acc_toggle_b_3.setBackground(Color.GREEN);
+            }
+            
+        } else{
+            if(vQuery.updateAcess(selectedUser, 1, false)){
+                upt_acc_toggle_b_3.setText("Not Allowed");
+                upt_acc_toggle_b_3.setBackground(Color.RED);
+            }
+        }
+    }//GEN-LAST:event_upt_acc_toggle_b_3ActionPerformed
+
+    private void btn_rbn_stgs_set_lecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rbn_stgs_set_lecMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_rbn_stgs_set_lecMouseClicked
+
+    private void btn_rbn_stgs_set_lecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_stgs_set_lecActionPerformed
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        panel_body.add(panel_set_lecture);
+        panel_body.repaint();
+        panel_body.revalidate();
+    }//GEN-LAST:event_btn_rbn_stgs_set_lecActionPerformed
+
+    private void txt_stg_lecture_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_stg_lecture_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_stg_lecture_nameActionPerformed
+
+    private void btn_stg_lectureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stg_lectureActionPerformed
+        
+        lQuery = new LectureQueries();
+         System.out.println(lQuery.setLecture(txt_stg_lecture_name.getText(), txt_stg_lecture_code.getText(), txt_stg_lecture_des.getText()));
+//        if(lQuery.setLecture(txt_stg_lecture_name.getText(), txt_stg_lecture_code.getText(), txt_stg_lecture_des.getText())){
+//           
+//        }
+        
+        
+    }//GEN-LAST:event_btn_stg_lectureActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1288,12 +1816,17 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_acc_user_add;
     private javax.swing.JButton btn_acc_user_add1;
     private javax.swing.JButton btn_acc_visitor_add;
+    private javax.swing.JButton btn_access_floor1;
+    private javax.swing.JButton btn_access_floor2;
     private javax.swing.JButton btn_rbnI_add_lecturer;
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
     private javax.swing.JButton btn_rbn_accounts;
-    private javax.swing.JButton btn_rbn_att_sheet;
+    private javax.swing.JButton btn_rbn_att_gen_report;
+    private javax.swing.JButton btn_rbn_stgs_set_lec;
+    private javax.swing.JButton btn_rbn_stgs_update_access;
     private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_stg_lecture;
     private javax.swing.JComboBox<String> combo_acc_lec_title;
     private javax.swing.JComboBox<String> combo_acc_user_acedamic_yr;
     private javax.swing.JComboBox<String> combo_acc_user_day;
@@ -1302,11 +1835,14 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_acc_user_title;
     private javax.swing.JComboBox<String> combo_acc_user_year;
     private javax.swing.JComboBox<String> combo_acc_visitor_title;
+    private javax.swing.JSpinner combo_att_gen_sheet_To_H;
+    private javax.swing.JSpinner combo_att_gen_sheet_To_M;
     private javax.swing.JComboBox<String> combo_att_gen_sheet_ac_yr;
     private com.toedter.calendar.JDateChooser combo_att_gen_sheet_date;
     private javax.swing.JComboBox<String> combo_att_gen_sheet_degree;
-    private javax.swing.JTextField combo_att_gen_sheet_from;
-    private javax.swing.JSpinner combo_att_gen_sheet_from_AM;
+    private javax.swing.JSpinner combo_att_gen_sheet_from_H;
+    private javax.swing.JSpinner combo_att_gen_sheet_from_M;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1331,6 +1867,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1340,14 +1883,22 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbl_floor1;
     private javax.swing.JPanel panel_acc_user_img;
     private javax.swing.JPanel panel_acc_user_img1;
     private javax.swing.JPanel panel_acc_visitor_img;
+    private javax.swing.JPanel panel_access_body;
+    private javax.swing.JPanel panel_access_floor1;
+    private javax.swing.JPanel panel_access_side_bar;
     private javax.swing.JPanel panel_add_lecturer;
     private javax.swing.JPanel panel_add_student;
     private javax.swing.JPanel panel_add_visitor;
@@ -1356,9 +1907,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel panel_rbn_Attendance;
     private javax.swing.JPanel panel_rbn_accounts;
     private javax.swing.JPanel panel_rbn_body;
+    private javax.swing.JPanel panel_rbn_settings;
     private javax.swing.JPanel panel_search_result;
+    private javax.swing.JPanel panel_set_lecture;
+    private javax.swing.JPanel panel_update_access;
     private javax.swing.JButton rbn_attendance;
-    private javax.swing.JButton rbn_student;
+    private javax.swing.JButton rbn_settings;
+    private javax.swing.JTable tbl_att_std_list;
     private javax.swing.JTextArea txt_acc_lec_address;
     private javax.swing.JTextField txt_acc_lec_email;
     private javax.swing.JTextField txt_acc_lec_first_name;
@@ -1380,6 +1935,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JTextField txt_acc_visitor_nic;
     private javax.swing.JTextField txt_acc_visitor_telephone;
     private javax.swing.JTextField txt_search;
+    private javax.swing.JTextField txt_stg_lecture_code;
+    private javax.swing.JTextArea txt_stg_lecture_des;
+    private javax.swing.JTextField txt_stg_lecture_name;
+    private javax.swing.JToggleButton upt_acc_toggle_b_1;
+    private javax.swing.JToggleButton upt_acc_toggle_b_2;
+    private javax.swing.JToggleButton upt_acc_toggle_b_3;
+    private javax.swing.JToggleButton upt_acc_toggle_b_4;
     // End of variables declaration//GEN-END:variables
 
     int getIDOfAcedamicYear(String s){
