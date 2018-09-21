@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 import models.AcedamicYear;
 import models.Degree;
 import models.Lecturer;
@@ -1303,12 +1304,10 @@ public class IMAccess extends javax.swing.JFrame {
             }
         });
 
+        tbl_att_std_list.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbl_att_std_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Student ID", "Name"
@@ -1799,6 +1798,21 @@ public class IMAccess extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         lQuery = new LectureQueries();
         lQuery.arrangeLecture("SENG31255", combo_att_gen_sheet_lec.getSelectedItem().toString(), (combo_att_gen_sheet_from_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), (combo_att_gen_sheet_To_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), combo_att_gen_sheet_date.getDate().toString(), combo_att_gen_sheet_degree.getSelectedItem().toString(), combo_att_gen_sheet_ac_yr.getSelectedItem().toString());
+        
+        
+        Query queryL = session.createQuery("FROM Student WHERE degree_id = (SELECT id FROM Degree WHERE short_name ='"+combo_att_gen_sheet_degree.getSelectedItem().toString()+"') "
+                                            + "AND academic_yr_id =(SELECT id FROM AcedamicYear WHERE academic_year ='"+combo_att_gen_sheet_ac_yr.getSelectedItem().toString()+"') ");
+        
+        stdList = queryL.list();
+        
+        for(Student st:stdList){
+            System.out.println(st.getFirst_name());
+            
+            Object [] row = {st.getStudent_no(), st.getFull_name()};
+            DefaultTableModel model = (DefaultTableModel) tbl_att_std_list.getModel();
+            model.addRow(row);
+        }
+     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -1835,6 +1849,7 @@ public class IMAccess extends javax.swing.JFrame {
             new IMAccess().setVisible(true);
         });
     }
+    
     
    
 
