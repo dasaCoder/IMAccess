@@ -72,6 +72,13 @@ public class IMAccess extends javax.swing.JFrame {
     Session session;
     
     
+    // @selected values from combo_att_mark_lecture combobox
+    
+    String selected_acYr;
+    String selected_degreeId;
+    String selected_subjectRecordId;
+    
+    
     List<AcedamicYear> acedamicYearList;
     List<Degree> degreeList;
     List<Student> stdList;
@@ -1150,18 +1157,14 @@ public class IMAccess extends javax.swing.JFrame {
         tbl_att_mark_st_list.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tbl_att_mark_st_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "id", "Student Id", "Name"
+                "id", "Student Id", "Name", "is Attended?"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1753,7 +1756,7 @@ public class IMAccess extends javax.swing.JFrame {
         
         try{
             while(rst.next()){
-                
+               
                 //System.out.println(rst.getString("id"));
                 
                 combo_att_mark_lecture.addItem(rst.getString("id")+" "+rst.getString("sub_code")+" "+rst.getString("id")+" "+rst.getString("start_time")+" "+rst.getString("end_time")+" "+rst.getString("degree_id")+" "+ rst.getString("academic_id")+" "+rst.getString("lec_name"));
@@ -2026,10 +2029,12 @@ public class IMAccess extends javax.swing.JFrame {
         lbl_mart_att_date.setText(splited[2]);
         lbl_mart_att_frm.setText(splited[3]);
         lbl_mart_att_to.setText(splited[4]);
-        
         selected_lec_id = splited[0];
         
-        ResultSet rs = lQuery.getStdBatch(splited[6],splited[5]);
+        selected_acYr = splited[6];
+        selected_degreeId = splited[5];
+        
+        ResultSet rs = lQuery.getStdBatch(selected_lec_id,selected_acYr,selected_degreeId);
         try{
             
             DefaultTableModel model = (DefaultTableModel) tbl_att_mark_st_list.getModel();
@@ -2038,8 +2043,18 @@ public class IMAccess extends javax.swing.JFrame {
             lbl_mart_att_lec.setText(splited[7]+" "+splited[8]+" "+splited[9]);
             while(rs.next()){
                 //System.out.println(rs.getString("fist_name"));
+                boolean x = false;
+                System.out.println("bool"+rs.getString("isAttended"));
                 
-                Object [] row = {rs.getString("id"),rs.getString("student_no"),rs.getString("full_name")};
+                String isAtd = rs.getString("isAttended");
+                
+                if(isAtd.equals("1")){
+                    x = true;
+                }else{
+                    x = false;
+                }
+                
+                Object [] row = {rs.getString("id"),rs.getString("student_no"),rs.getString("full_name"),x};
                 
                 model.addRow(row);
                 
@@ -2142,7 +2157,29 @@ public class IMAccess extends javax.swing.JFrame {
                  String id = (String)tbl_att_mark_st_list.getValueAt(row, 0);
             System.out.println("id" + id);
               lQuery = new LectureQueries();
-              lQuery.updateAttendance(id, selected_lec_id, true);
+              boolean rst = lQuery.updateAttendance(id, selected_lec_id, true);
+              
+              if(rst){
+                          
+        ResultSet rs = lQuery.getStdBatch(selected_lec_id,selected_acYr,selected_degreeId);
+        try{
+            
+            DefaultTableModel model = (DefaultTableModel) tbl_att_mark_st_list.getModel();
+            model.setRowCount(0);
+            
+            while(rs.next()){
+                //System.out.println(rs.getString("fist_name"));
+                
+                Object [] row1 = {rs.getString("id"),rs.getString("student_no"),rs.getString("full_name"),false};
+                
+                model.addRow(row1);
+                
+                
+            }
+        
+        }catch(Exception e){}
+              }
+              
             }
             
         }

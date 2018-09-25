@@ -103,15 +103,16 @@ public class LectureQueries {
         return null;
     }
     
-    public ResultSet getStdBatch(String acYr, String deg){
+    public ResultSet getStdBatch(String recId,String acYr, String deg){
         
-        String sql = "SELECT * FROM student WHERE student.academic_yr_id = ? and student.degree_id = ?";
+        String sql = "SELECT *, (select s.isAttended FROM stu_attendance as s WHERE s.stu_id = student.id AND s.subject_rec_id = ? ) as isAttended  FROM student WHERE student.academic_yr_id = ? and student.degree_id = ?";
         
         try {
             
             pst = con.prepareStatement(sql);
-            pst.setString(1, acYr);
-            pst.setString(2,deg);
+            pst.setString(1, recId);
+            pst.setString(2, acYr);
+            pst.setString(3,deg);
             ResultSet rst = pst.executeQuery();
             return rst;
             
