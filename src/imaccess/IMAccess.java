@@ -8,15 +8,27 @@ package imaccess;
 
 import Queries.LectureQueries;
 import Queries.VisitorQuery;
+import arduino.Arduino;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
@@ -43,7 +55,7 @@ public class IMAccess extends javax.swing.JFrame {
      */
     
     String selected_table_category = "Student";
-    
+    String selected_lec_id;
     int selectedUser = 0;
     
     ApplicationContext ctx = new ClassPathXmlApplicationContext("SpringXMLConfig.xml");
@@ -53,6 +65,8 @@ public class IMAccess extends javax.swing.JFrame {
     AcedamicYear acedamicYear = (AcedamicYear) ctx.getBean("acedamicYear");
     Degree degree = (Degree) ctx.getBean("degree");
     Visitor visitor = (Visitor) ctx.getBean("visitor");
+    
+    Arduino arduino;
     
     
     Session session;
@@ -90,6 +104,9 @@ public class IMAccess extends javax.swing.JFrame {
         
         session = sessionFactory().openSession();
         session.beginTransaction();
+        
+        
+        //lQuery = new LectureQueries();
         
         
         Query query = session.createQuery("from AcedamicYear");
@@ -146,6 +163,7 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbn_stgs_update_access = new javax.swing.JButton();
         btn_rbn_stgs_set_lec = new javax.swing.JButton();
         panel_rbn_Attendance = new javax.swing.JPanel();
+        btn_rbn_att_mark_attendance = new javax.swing.JButton();
         btn_rbn_att_gen_report = new javax.swing.JButton();
         rbn_settings = new javax.swing.JButton();
         btn_rbn_accounts = new javax.swing.JButton();
@@ -223,7 +241,20 @@ public class IMAccess extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        panel_mark_attendace = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        combo_att_mark_lecture = new javax.swing.JComboBox<>();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        lbl_mart_att_date = new javax.swing.JLabel();
+        lbl_mart_att_frm = new javax.swing.JLabel();
+        lbl_mart_att_to = new javax.swing.JLabel();
+        lbl_mart_att_lec = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tbl_att_mark_st_list = new javax.swing.JTable();
+        btn_mark_fingerprint_att = new javax.swing.JButton();
         panel_update_access = new javax.swing.JPanel();
         panel_access_side_bar = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -316,6 +347,8 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_rbn_body.add(panel_rbn_accounts, "card2");
 
+        panel_rbn_settings.setBackground(new java.awt.Color(255, 255, 255));
+
         btn_rbn_stgs_update_access.setBackground(new java.awt.Color(243, 243, 243));
         btn_rbn_stgs_update_access.setText("Update Acess");
         btn_rbn_stgs_update_access.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -367,7 +400,15 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_Attendance.setBackground(new java.awt.Color(255, 255, 255));
         panel_rbn_Attendance.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_rbn_att_gen_report.setText("Genarate Attendance Sheet");
+        btn_rbn_att_mark_attendance.setText("Mark Attendance");
+        btn_rbn_att_mark_attendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbn_att_mark_attendanceActionPerformed(evt);
+            }
+        });
+        panel_rbn_Attendance.add(btn_rbn_att_mark_attendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 190, 80));
+
+        btn_rbn_att_gen_report.setText("Arrange Lecture");
         btn_rbn_att_gen_report.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbn_att_gen_reportActionPerformed(evt);
@@ -1065,18 +1106,146 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.add(panel_search_result, "card6");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+        panel_mark_attendace.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel39.setText("Select Lecture");
+
+        combo_att_mark_lecture.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        combo_att_mark_lecture.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_att_mark_lectureItemStateChanged(evt);
+            }
+        });
+        combo_att_mark_lecture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_att_mark_lectureActionPerformed(evt);
+            }
+        });
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel40.setText("Date");
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel41.setText("From");
+
+        jLabel42.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel42.setText("To");
+
+        jLabel43.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel43.setText("Lecture");
+
+        lbl_mart_att_date.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_mart_att_date.setText("Select Lecture");
+
+        lbl_mart_att_frm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_mart_att_frm.setText("Select Lecture");
+
+        lbl_mart_att_to.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_mart_att_to.setText("Select Lecture");
+
+        lbl_mart_att_lec.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbl_mart_att_lec.setText("Select Lecture");
+
+        tbl_att_mark_st_list.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tbl_att_mark_st_list.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "id", "Student Id", "Name"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tbl_att_mark_st_list.setRowSelectionAllowed(false);
+        tbl_att_mark_st_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_att_mark_st_listMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tbl_att_mark_st_list);
+
+        btn_mark_fingerprint_att.setText("Mark Attendance");
+        btn_mark_fingerprint_att.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_mark_fingerprint_attActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_mark_attendaceLayout = new javax.swing.GroupLayout(panel_mark_attendace);
+        panel_mark_attendace.setLayout(panel_mark_attendaceLayout);
+        panel_mark_attendaceLayout.setHorizontalGroup(
+            panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel40)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel42)
+                            .addComponent(jLabel43))
+                        .addGap(45, 45, 45)
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_mart_att_frm, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                            .addComponent(lbl_mart_att_date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_mart_att_to, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_mart_att_lec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel39)
+                    .addComponent(combo_att_mark_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_mark_fingerprint_att, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+        panel_mark_attendaceLayout.setVerticalGroup(
+            panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                        .addGap(201, 201, 201)
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_mart_att_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_mart_att_frm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_mart_att_to, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_mark_attendaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_mart_att_lec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel43)))
+                    .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_att_mark_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(122, 122, 122)
+                .addComponent(btn_mark_fingerprint_att, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(181, 181, 181))
+            .addGroup(panel_mark_attendaceLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel_body.add(jPanel5, "card9");
+        panel_body.add(panel_mark_attendace, "card9");
 
         panel_update_access.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1234,11 +1403,6 @@ public class IMAccess extends javax.swing.JFrame {
                 .addGap(96, 96, 96)
                 .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_set_lectureLayout.createSequentialGroup()
-                        .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel32))
-                        .addGap(810, 832, Short.MAX_VALUE))
-                    .addGroup(panel_set_lectureLayout.createSequentialGroup()
                         .addComponent(jLabel34)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panel_set_lectureLayout.createSequentialGroup()
@@ -1248,8 +1412,12 @@ public class IMAccess extends javax.swing.JFrame {
                             .addComponent(txt_stg_lecture_name))
                         .addGap(404, 404, 404))
                     .addGroup(panel_set_lectureLayout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btn_stg_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panel_set_lectureLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel32)
+                            .addGroup(panel_set_lectureLayout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(btn_stg_lecture, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panel_set_lectureLayout.setVerticalGroup(
@@ -1574,15 +1742,32 @@ public class IMAccess extends javax.swing.JFrame {
         panel_body.revalidate();
     }//GEN-LAST:event_btn_rbnI_add_lecturerMouseClicked
 
-    private void btn_rbn_att_gen_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_gen_reportActionPerformed
+    private void btn_rbn_att_mark_attendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_mark_attendanceActionPerformed
         panel_body.removeAll();
         panel_body.repaint();
         panel_body.revalidate();
         
-        panel_body.add(panel_genarate_att_sheet);
+        
+        lQuery = new LectureQueries();
+        ResultSet rst = this.lQuery.getSubjectList();
+        
+        try{
+            while(rst.next()){
+                
+                //System.out.println(rst.getString("id"));
+                
+                combo_att_mark_lecture.addItem(rst.getString("id")+" "+rst.getString("sub_code")+" "+rst.getString("id")+" "+rst.getString("start_time")+" "+rst.getString("end_time")+" "+rst.getString("degree_id")+" "+ rst.getString("academic_id")+" "+rst.getString("lec_name"));
+            
+            }
+        }catch(Exception e){
+            
+        }
+        
+        
+        panel_body.add(panel_mark_attendace);
         panel_body.repaint();
         panel_body.revalidate();
-    }//GEN-LAST:event_btn_rbn_att_gen_reportActionPerformed
+    }//GEN-LAST:event_btn_rbn_att_mark_attendanceActionPerformed
 
     private void combo_acc_visitor_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_acc_visitor_titleActionPerformed
         // TODO add your handling code here:
@@ -1796,7 +1981,7 @@ public class IMAccess extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_stg_lectureActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        lQuery = new LectureQueries();
+        //lQuery = new LectureQueries();
         lQuery.arrangeLecture("SENG31255", combo_att_gen_sheet_lec.getSelectedItem().toString(), (combo_att_gen_sheet_from_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), (combo_att_gen_sheet_To_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), combo_att_gen_sheet_date.getDate().toString(), combo_att_gen_sheet_degree.getSelectedItem().toString(), combo_att_gen_sheet_ac_yr.getSelectedItem().toString());
         
         
@@ -1805,15 +1990,166 @@ public class IMAccess extends javax.swing.JFrame {
         
         stdList = queryL.list();
         
+        DefaultTableModel model = (DefaultTableModel) tbl_att_std_list.getModel();
+        model.setRowCount(0);
+        
         for(Student st:stdList){
             System.out.println(st.getFirst_name());
             
+            
             Object [] row = {st.getStudent_no(), st.getFull_name()};
-            DefaultTableModel model = (DefaultTableModel) tbl_att_std_list.getModel();
+            lQuery.markStdAttendance(st.getId(), false);
             model.addRow(row);
         }
      
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btn_rbn_att_gen_reportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbn_att_gen_reportActionPerformed
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        panel_body.add(panel_genarate_att_sheet);
+        panel_body.repaint();
+        panel_body.revalidate();
+    }//GEN-LAST:event_btn_rbn_att_gen_reportActionPerformed
+
+    private void combo_att_mark_lectureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_att_mark_lectureActionPerformed
+       
+    }//GEN-LAST:event_combo_att_mark_lectureActionPerformed
+
+    private void combo_att_mark_lectureItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_att_mark_lectureItemStateChanged
+        String lecSelected = combo_att_mark_lecture.getSelectedItem().toString();
+        
+        String[] splited = lecSelected.split("\\s+");
+        
+        lbl_mart_att_date.setText(splited[2]);
+        lbl_mart_att_frm.setText(splited[3]);
+        lbl_mart_att_to.setText(splited[4]);
+        
+        selected_lec_id = splited[0];
+        
+        ResultSet rs = lQuery.getStdBatch(splited[6],splited[5]);
+        try{
+            
+            DefaultTableModel model = (DefaultTableModel) tbl_att_mark_st_list.getModel();
+            model.setRowCount(0);
+            
+            lbl_mart_att_lec.setText(splited[7]+" "+splited[8]+" "+splited[9]);
+            while(rs.next()){
+                //System.out.println(rs.getString("fist_name"));
+                
+                Object [] row = {rs.getString("id"),rs.getString("student_no"),rs.getString("full_name")};
+                
+                model.addRow(row);
+                
+                
+            }
+        
+        }catch(Exception e){}
+        
+        
+        System.out.println(splited[6]+" "+splited[5]);
+    }//GEN-LAST:event_combo_att_mark_lectureItemStateChanged
+
+    private void btn_mark_fingerprint_attActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mark_fingerprint_attActionPerformed
+        
+            
+        arduino = new Arduino("COM11", 9600); //enter the port name here, and ensure that Arduino is connected, otherwise exception will be thrown.
+		arduino.openConnection();
+		//System.out.println("Enter 1 to switch LED on and 0  to switch LED off");
+		//char input = ob.nextLine().charAt(0);
+                
+                char input = '2';
+                
+		while(input != 'n'){
+			arduino.serialWrite(input);
+
+                    
+                    try {
+                        TimeUnit.SECONDS.sleep(4);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(IMAccess.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                        String result = arduino.serialRead();
+                        
+                    switch (result.length()) {
+                        case 2:
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            //JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 3:
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 4:
+                            input = 'n';
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            break;
+                        default:
+                            input = '2';
+                            System.out.println(result + " " +result.length());
+                            break;
+                    }                     
+        
+                }       
+		
+		
+		arduino.closeConnection();
+    }//GEN-LAST:event_btn_mark_fingerprint_attActionPerformed
+
+    public void loadStdDetail(int fpId){
+        try {
+            
+            System.out.println("fp id id " +fpId);
+            //lQuery = new LectureQueries();
+            ResultSet stdD = lQuery.getStudentDetailsByFP(fpId);
+            
+            if(stdD.next()){
+                //while(stdD.next()){
+                    //System.out.println("ddddddddd");
+                    System.out.println(stdD.getString("student_no"));
+                //}
+                StdDetails stdDetails = new StdDetails(stdD);
+                stdDetails.setVisible(true);
+            //}
+            } else{
+                JOptionPane.showConfirmDialog(null, "Invalid fingerprint id");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(IMAccess.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+    }
+    
+    
+    private void tbl_att_mark_st_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_att_mark_st_listMouseClicked
+        int row = tbl_att_mark_st_list.getSelectedRow();
+        int col = tbl_att_mark_st_list.getSelectedColumn();
+        if(row>=0){
+            
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to mark "+(String)tbl_att_mark_st_list.getValueAt(row, 2)+" attend the lecture?","Warning",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                 String id = (String)tbl_att_mark_st_list.getValueAt(row, 0);
+            System.out.println("id" + id);
+              lQuery = new LectureQueries();
+              lQuery.updateAttendance(id, selected_lec_id, true);
+            }
+            
+        }
+       
+        
+        //System.out.println(row+" "+col);
+    }//GEN-LAST:event_tbl_att_mark_st_listMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1834,13 +2170,13 @@ public class IMAccess extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IMAccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IMAccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IMAccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IMAccess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1859,11 +2195,13 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_acc_visitor_add;
     private javax.swing.JButton btn_access_floor1;
     private javax.swing.JButton btn_access_floor2;
+    private javax.swing.JButton btn_mark_fingerprint_att;
     private javax.swing.JButton btn_rbnI_add_lecturer;
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
     private javax.swing.JButton btn_rbn_accounts;
     private javax.swing.JButton btn_rbn_att_gen_report;
+    private javax.swing.JButton btn_rbn_att_mark_attendance;
     private javax.swing.JButton btn_rbn_stgs_set_lec;
     private javax.swing.JButton btn_rbn_stgs_update_access;
     private javax.swing.JButton btn_search;
@@ -1884,6 +2222,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JSpinner combo_att_gen_sheet_from_H;
     private javax.swing.JSpinner combo_att_gen_sheet_from_M;
     private javax.swing.JComboBox<String> combo_att_gen_sheet_lec;
+    private javax.swing.JComboBox<String> combo_att_mark_lecture;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1917,7 +2256,12 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1927,15 +2271,19 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_floor1;
+    private javax.swing.JLabel lbl_mart_att_date;
+    private javax.swing.JLabel lbl_mart_att_frm;
+    private javax.swing.JLabel lbl_mart_att_lec;
+    private javax.swing.JLabel lbl_mart_att_to;
     private javax.swing.JPanel panel_acc_user_img;
     private javax.swing.JPanel panel_acc_user_img1;
     private javax.swing.JPanel panel_acc_visitor_img;
@@ -1947,6 +2295,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel panel_add_visitor;
     private javax.swing.JPanel panel_body;
     private javax.swing.JPanel panel_genarate_att_sheet;
+    private javax.swing.JPanel panel_mark_attendace;
     private javax.swing.JPanel panel_rbn_Attendance;
     private javax.swing.JPanel panel_rbn_accounts;
     private javax.swing.JPanel panel_rbn_body;
@@ -1956,6 +2305,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JPanel panel_update_access;
     private javax.swing.JButton rbn_attendance;
     private javax.swing.JButton rbn_settings;
+    private javax.swing.JTable tbl_att_mark_st_list;
     private javax.swing.JTable tbl_att_std_list;
     private javax.swing.JTextArea txt_acc_lec_address;
     private javax.swing.JTextField txt_acc_lec_email;

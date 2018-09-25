@@ -7,6 +7,7 @@ package Queries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -80,5 +81,124 @@ public class LectureQueries {
         }
         return false;
     }
+    
+    public ResultSet getSubjectList(){
+        String sql = "SELECT id,date, start_time,end_time,(SELECT concat(lecturers.title,\" \",lecturers.full_name) from lecturers WHERE lecturers.id = subject_record.lecturer_id) as lec_name, "
+                + "(select subjects.code FROM subjects WHERE subjects.id = subject_record.subject_id) as sub_code, degree_id, academic_id "
+                + "FROM `subject_record`";
+        
+        try {
+            //SELECT start_time,end_time,date, (select concat(lecturers.title,". ",lecturers.full_name) from lecturers WHERE lecturers.id = subject_record.lecturer_id) as lecturer, (SELECT subjects.code FROM subjects WHERE subjects.id = subject_record.subject_id) FROM `subject_record`
+
+            stmt = con.createStatement();
+            ResultSet rst = stmt.executeQuery(sql);
+            
+            return rst;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    public ResultSet getStdBatch(String acYr, String deg){
+        
+        String sql = "SELECT * FROM student WHERE student.academic_yr_id = ? and student.degree_id = ?";
+        
+        try {
+            
+            pst = con.prepareStatement(sql);
+            pst.setString(1, acYr);
+            pst.setString(2,deg);
+            ResultSet rst = pst.executeQuery();
+            return rst;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+    
+    public boolean markStdAttendance(String stdId, String lecId){
+        
+        String sql = "INSERT INTO `stu_attendance` (`id`, `subject_id`, `stu_id`, `isAttended`) VALUES (NULL, ?, ?, '1')";
+        
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1,lecId);
+            pst.setString(2,stdId);
+            return pst.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return false;
+    }
+    
+    public ResultSet getStudentDetailsByFP(int fpId) throws SQLException{
+        String sql = "SELECT concat(student.title,' ',student.full_name) as name, student.student_no, "
+                + "(select academic_years.academic_year from academic_years WHERE academic_years.id = student.academic_yr_id LIMIT 1) as ac_yr, "
+                + "(SELECT degrees.short_name FROM degrees WHERE degrees.id = student.degree_id LIMIT 1) as degree "
+                + "FROM `student` WHERE fingerprint_id = ?";
+
+//String sql = "select * from student WHERE fingerprint_id = 116";
+//System.out.println("hi");
+        
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, 116);
+            ResultSet rst = pst.executeQuery();
+            return rst;
+           
+            
+            
+        
+    }
+    // when lec is created this function will add false value to all enrolled stuent in stuent attendance table
+    public boolean markStdAttendance(int stId, boolean isAttended){
+        
+        String sql = "INSERT INTO `stu_attendance` (`id`, `subject_rec_id`, `stu_id`, `isAttended`) VALUES (NULL,(SELECT MAX(subject_record.id) FROM subject_record),?,?)";
+        
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setInt(1, stId);
+            pst.setBoolean(2,isAttended);
+            //pst.setBoolean(3,isAttended);
+            
+            
+            return pst.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
+    public boolean updateAttendance(String stId, String recId, Boolean isAttended){
+        
+        String sql = "UPDATE `stu_attendance` SET `isAttended` = ? WHERE `subject_rec_id` = ? AND `stu_id` = ?";
+        
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setBoolean(1, isAttended);
+            pst.setString(2,recId);
+            pst.setString(3,stId);
+            
+            return pst.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
+    
+    
     
 }

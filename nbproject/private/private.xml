@@ -7,7 +7,8 @@
             <file>file:/D:/project/IMAccess/src/Connector.java</file>
             <file>file:/D:/project/IMAccess/src/Queries/VisitorQuery.java</file>
             <file>file:/D:/project/IMAccess/src/imaccess/IMAccess.java</file>
-            <file>file:/D:/project/IMAccess/src/Queries/Dbconnection.java</file>
+            <file>file:/D:/project/IMAccess/src/imaccess/StdDetails.java</file>
+            <file>file:/D:/project/IMAccess/src/Queries/LectureQueries.java</file>
             <file>file:/D:/project/IMAccess/src/models/Visitor.java</file>
             <file>file:/D:/project/IMAccess/src/models/AcedamicYear.java</file>
         </group>
