@@ -198,8 +198,25 @@ public class LectureQueries {
         
         return false;
     }
-    
-    
+    //UPDATE `stu_attendance` SET `isAttended` = 1 WHERE `subject_rec_id` = 16 AND `stu_id` = (SELECT id FROM student WHERE student.fingerprint_id = 131)
+     public boolean updateAttendanceByFP(String fpId, String recId, Boolean isAttended){
+        
+        String sql = "UPDATE `stu_attendance` SET `isAttended` = ? WHERE `subject_rec_id` = ? AND `stu_id` = (SELECT id FROM student WHERE student.fingerprint_id = ?)";
+        
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setBoolean(1, isAttended);
+            pst.setString(2,recId);
+            pst.setString(3,fpId);
+            
+            return pst.execute();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
     
     
 }

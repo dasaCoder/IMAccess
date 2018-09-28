@@ -218,6 +218,8 @@ public class Student {
     private int degree_id;
     private int academic_yr_id;
     private boolean is_active;
+    
+    private String img_path;
   
 
     /**
@@ -232,6 +234,20 @@ public class Student {
      */
     public void setStudent_no(String student_no) {
         this.student_no = student_no;
+    }
+
+    /**
+     * @return the img_path
+     */
+    public String getImg_path() {
+        return img_path;
+    }
+
+    /**
+     * @param img_path the img_path to set
+     */
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
     }
         
     

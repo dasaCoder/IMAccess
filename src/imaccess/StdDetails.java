@@ -5,10 +5,12 @@
  */
 package imaccess;
 
+import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,12 +34,24 @@ public class StdDetails extends javax.swing.JFrame {
                lbl_std_dtl_acyr.setText(stdD.getString("ac_yr"));
                lbl_std_dtl_dgr.setText(stdD.getString("degree"));
                lbl_std_dtl_no.setText(stdD.getString("student_no"));
+               lbl_std_img.setIcon(resizeImage(stdD.getString("img_path")));
             
             
             
         } catch (SQLException ex) {
             Logger.getLogger(StdDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+     public ImageIcon resizeImage(String imgPath){
+        
+        ImageIcon myImage = new ImageIcon(imgPath);
+        Image img = myImage.getImage();
+        Image newImage = img.getScaledInstance(lbl_std_img.getWidth(), lbl_std_img.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImage);
+        return image;
+        
+        
     }
 
     /**
@@ -51,12 +65,12 @@ public class StdDetails extends javax.swing.JFrame {
 
         panel_student_details = new javax.swing.JPanel();
         panel_access_side_bar1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         lbl_std_dtl_name = new javax.swing.JLabel();
         lbl_std_dtl_no = new javax.swing.JLabel();
         lbl_std_dtl_acyr = new javax.swing.JLabel();
         lbl_std_dtl_dgr = new javax.swing.JLabel();
         lbl_std_dtl_acyr2 = new javax.swing.JLabel();
+        lbl_std_img = new javax.swing.JLabel();
         panel_access_body1 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tbl_std_dtl_att = new javax.swing.JTable();
@@ -66,17 +80,6 @@ public class StdDetails extends javax.swing.JFrame {
         panel_student_details.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_access_side_bar1.setBackground(new java.awt.Color(204, 204, 255));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 164, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
-        );
 
         lbl_std_dtl_name.setBackground(new java.awt.Color(255, 51, 153));
         lbl_std_dtl_name.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -102,12 +105,8 @@ public class StdDetails extends javax.swing.JFrame {
         panel_access_side_bar1.setLayout(panel_access_side_bar1Layout);
         panel_access_side_bar1Layout.setHorizontalGroup(
             panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_access_side_bar1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(lbl_std_dtl_no, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_access_side_bar1Layout.createSequentialGroup()
@@ -127,13 +126,17 @@ public class StdDetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbl_std_dtl_acyr2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_access_side_bar1Layout.setVerticalGroup(
             panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(44, 44, 44)
+                .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_std_dtl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_std_dtl_no, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,13 +245,13 @@ public class StdDetails extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel lbl_std_dtl_acyr;
     private javax.swing.JLabel lbl_std_dtl_acyr2;
     private javax.swing.JLabel lbl_std_dtl_dgr;
     private javax.swing.JLabel lbl_std_dtl_name;
     private javax.swing.JLabel lbl_std_dtl_no;
+    private javax.swing.JLabel lbl_std_img;
     private javax.swing.JPanel panel_access_body1;
     private javax.swing.JPanel panel_access_side_bar1;
     private javax.swing.JPanel panel_student_details;
