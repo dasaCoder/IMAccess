@@ -29,6 +29,7 @@ public class Lecturer {
     private int telephone;
     private String email;
     private String nic_no;
+    private String img_path;
 
     /**
      * @return the id
