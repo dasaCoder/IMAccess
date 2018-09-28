@@ -60,6 +60,7 @@ public class VisitorQuery {
             pst = con.prepareStatement(query);
             pst.setInt(1,visitor_id);
             pst.setInt(2,visitor_id);
+            pst.setInt(3,visitor_id);
             boolean status = pst.execute();
 
             return status;

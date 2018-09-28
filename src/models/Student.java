@@ -215,6 +215,8 @@ public class Student {
     //private String degree;
     private String student_no;
     
+    private int fingerprint_id;
+    
     private int degree_id;
     private int academic_yr_id;
     private boolean is_active;
@@ -248,6 +250,20 @@ public class Student {
      */
     public void setImg_path(String img_path) {
         this.img_path = img_path;
+    }
+
+    /**
+     * @return the fingerprint_id
+     */
+    public int getFingerprint_id() {
+        return fingerprint_id;
+    }
+
+    /**
+     * @param fingerprint_id the fingerprint_id to set
+     */
+    public void setFingerprint_id(int fingerprint_id) {
+        this.fingerprint_id = fingerprint_id;
     }
         
     

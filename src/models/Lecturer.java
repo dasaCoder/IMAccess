@@ -17,6 +17,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name="lecturers")
 public class Lecturer {
+
+    /**
+     * @return the img_path
+     */
+    public String getImg_path() {
+        return img_path;
+    }
+
+    /**
+     * @param img_path the img_path to set
+     */
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }
     
      @Id
     @GeneratedValue
@@ -30,6 +44,7 @@ public class Lecturer {
     private String email;
     private String nic_no;
     private String img_path;
+    private int fp_id;
 
     /**
      * @return the id
@@ -155,6 +170,20 @@ public class Lecturer {
      */
     public void setNic_no(String nic_no) {
         this.nic_no = nic_no;
+    }
+
+    /**
+     * @return the fp_id
+     */
+    public int getFp_id() {
+        return fp_id;
+    }
+
+    /**
+     * @param fp_id the fp_id to set
+     */
+    public void setFp_id(int fp_id) {
+        this.fp_id = fp_id;
     }
     
 }
