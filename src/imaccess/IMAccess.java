@@ -1891,27 +1891,27 @@ public class IMAccess extends javax.swing.JFrame {
     private void btn_acc_visitor_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_visitor_addActionPerformed
         
        
-//        visitor.setTitle(combo_acc_visitor_title.getSelectedItem().toString());
-//        visitor.setFirst_name(txt_acc_visitor_first_name.getText());
-//        visitor.setLast_name(txt_acc_visitor_last_name.getText());
-//        visitor.setFull_name(txt_acc_visitor_full_name.getText());
-//        visitor.setTelephone(Integer.parseInt(txt_acc_visitor_telephone.getText()));
-//        visitor.setAddress(txt_acc_visitor_address.getText());
-//        visitor.setEmail(txt_acc_visitor_email.getText());
-//        visitor.setNic_no(txt_acc_visitor_nic.getText());
-//        visitor.setImg_path(txt_acc_user_img_path_vtr.getText());
-//        visitor.setFp_id(Integer.parseInt(txt_acc_user_fpid_vtr.getText()));
+        visitor.setTitle(combo_acc_visitor_title.getSelectedItem().toString());
+        visitor.setFirst_name(txt_acc_visitor_first_name.getText());
+        visitor.setLast_name(txt_acc_visitor_last_name.getText());
+        visitor.setFull_name(txt_acc_visitor_full_name.getText());
+        visitor.setTelephone(Integer.parseInt(txt_acc_visitor_telephone.getText()));
+        visitor.setAddress(txt_acc_visitor_address.getText());
+        visitor.setEmail(txt_acc_visitor_email.getText());
+        visitor.setNic_no(txt_acc_visitor_nic.getText());
+        visitor.setImg_path(txt_acc_user_img_path_vtr.getText());
+        visitor.setFp_id(Integer.parseInt(txt_acc_user_fpid_vtr.getText()));
         
-//        Session session = sessionFactory().openSession();
-//                
-//                session.beginTransaction();
-//                session.save(visitor);
-//                session.getTransaction().commit();
-//                
-//                vQuery = new VisitorQuery();
-//                vQuery.setAccess(vQuery.getLastUserId());
+        Session session = sessionFactory().openSession();
+                
+                session.beginTransaction();
+                session.save(visitor);
+                session.getTransaction().commit();
+                
+                vQuery = new VisitorQuery();
+                vQuery.setAccess(vQuery.getLastUserId());
             
-                SendEmail se = new SendEmail();
+                SendEmail se = new SendEmail(txt_acc_visitor_email.getText(),txt_acc_visitor_first_name.getText() );
         
     }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
 

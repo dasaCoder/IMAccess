@@ -74,6 +74,7 @@ package imaccess;
 
 
 import java.util.Properties;
+import java.util.Random;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -83,7 +84,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
-	public SendEmail() {
+	public SendEmail(String reciepent, String user) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -98,16 +99,19 @@ public class SendEmail {
 					return new PasswordAuthentication("dilushadasanayaka@gmail.com","thjccacmpmmbarmu");
 				}
 			});
-
+                Random rand = new Random();
+                String password = String.format("%04d", rand.nextInt(10000));
+                
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("from@no-spam.com"));
+			message.setFrom(new InternetAddress("IMAcess"));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("pabaup@gmail.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," +
-					"\n\n No spam to my email, please!");
+					InternetAddress.parse(reciepent));
+			message.setSubject("Welcome! "+user);
+			message.setText("Dear Sir/Madam," +
+					"\n\n We warmly welcome you to the IM family!\n\n Your username and password for accessing department premisses is as follows"
+                                + "\n\n User name : "+user + "\n\nPassword : "+password);
 
 			Transport.send(message);
 
