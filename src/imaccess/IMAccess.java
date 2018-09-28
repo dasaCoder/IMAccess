@@ -168,6 +168,8 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbnI_add_visitor1 = new javax.swing.JButton();
         btn_rbnI_add_stuent = new javax.swing.JButton();
         btn_rbnI_add_lecturer = new javax.swing.JButton();
+        btn_rbnI_get_std_list = new javax.swing.JButton();
+        btn_rbnI_search_std = new javax.swing.JButton();
         panel_rbn_settings = new javax.swing.JPanel();
         btn_rbn_stgs_update_access = new javax.swing.JButton();
         btn_rbn_stgs_set_lec = new javax.swing.JButton();
@@ -260,8 +262,7 @@ public class IMAccess extends javax.swing.JFrame {
         txt_acc_user_fpid_lec = new javax.swing.JTextField();
         panel_search_result = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
+        tbl_std_search_list = new javax.swing.JTable();
         panel_mark_attendace = new javax.swing.JPanel();
         jLabel39 = new javax.swing.JLabel();
         combo_att_mark_lecture = new javax.swing.JComboBox<>();
@@ -342,7 +343,7 @@ public class IMAccess extends javax.swing.JFrame {
                 btn_rbnI_add_visitor1ActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 188, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 188, 91));
 
         btn_rbnI_add_stuent.setText("Add Student");
         btn_rbnI_add_stuent.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +351,7 @@ public class IMAccess extends javax.swing.JFrame {
                 btn_rbnI_add_stuentActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_stuent, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, 191, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_stuent, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, 100, 91));
 
         btn_rbnI_add_lecturer.setBackground(new java.awt.Color(243, 243, 243));
         btn_rbnI_add_lecturer.setText("Add Lecturer");
@@ -364,7 +365,23 @@ public class IMAccess extends javax.swing.JFrame {
                 btn_rbnI_add_lecturerActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_lecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 190, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_lecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 110, 91));
+
+        btn_rbnI_get_std_list.setText("Student List");
+        btn_rbnI_get_std_list.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbnI_get_std_listActionPerformed(evt);
+            }
+        });
+        panel_rbn_accounts.add(btn_rbnI_get_std_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 100, 90));
+
+        btn_rbnI_search_std.setText("Search Student");
+        btn_rbnI_search_std.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbnI_search_stdActionPerformed(evt);
+            }
+        });
+        panel_rbn_accounts.add(btn_rbnI_search_std, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 110, 90));
 
         panel_rbn_body.add(panel_rbn_accounts, "card2");
 
@@ -1164,43 +1181,39 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_search_result.setLayout(new javax.swing.BoxLayout(panel_search_result, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_std_search_list.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tbl_std_search_list.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Full Name", "Student No", "Academic Year", "Degree", "Telephone"
+                "Full Name", "Student No", "Telephone", "Fingerprint ID"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(37);
-        jScrollPane4.setViewportView(jTable1);
+        tbl_std_search_list.setRowHeight(37);
+        tbl_std_search_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_std_search_listMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tbl_std_search_list);
 
         panel_search_result.add(jScrollPane4);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-
-        panel_search_result.add(jPanel3);
 
         panel_body.add(panel_search_result, "card6");
 
@@ -2198,24 +2211,24 @@ public class IMAccess extends javax.swing.JFrame {
                             loadStdDetail(Integer.parseInt(result));
                             
                             JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
-                            System.out.println(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
                             input = 'n';
                             break;
                         case 3:
                             result = result.replace("\n", "").replace("\r", "");
                             loadStdDetail(Integer.parseInt(result));
-                            System.out.println(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
                             input = 'n';
                             break;
                         case 4:
                             input = 'n';
                             result = result.replace("\n", "").replace("\r", "");
                             loadStdDetail(Integer.parseInt(result));
-                            System.out.println(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
                             break;
                         default:
                             input = '2';
-                            System.out.println(result + " " +result.length());
+                           // System.out.println(result + " " +result.length());
                             break;
                     }                     
         
@@ -2227,10 +2240,10 @@ public class IMAccess extends javax.swing.JFrame {
 
     public void loadStdDetail(int fpId){
         try {
-            
+            LectureQueries lq = new LectureQueries();
             System.out.println("fp id id " +fpId);
             //lQuery = new LectureQueries();
-            ResultSet stdD = lQuery.getStudentDetailsByFP(fpId);
+            ResultSet stdD = lq.getStudentDetailsByFP(fpId);
             
             if(stdD.next()){
                 //while(stdD.next()){
@@ -2241,7 +2254,7 @@ public class IMAccess extends javax.swing.JFrame {
                 stdDetails.setVisible(true);
             //}
             } else{
-                JOptionPane.showConfirmDialog(null, "Invalid fingerprint id");
+                JOptionPane.showMessageDialog(null, "Invalid fingerprint id");
             }
             
         } catch (SQLException ex) {
@@ -2251,7 +2264,7 @@ public class IMAccess extends javax.swing.JFrame {
     }
     
     public void markAttendanceByFingerPrint(int fpId){
-        boolean rst = lQuery.updateAttendanceByFP("131", selected_lec_id,false );
+        boolean rst = lQuery.updateAttendanceByFP(String.valueOf(fpId), selected_lec_id,false );
               
               if(rst){
                           
@@ -2386,6 +2399,102 @@ public class IMAccess extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_acc_user_fpid_lecActionPerformed
 
+    private void btn_rbnI_search_stdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_search_stdActionPerformed
+       
+        JOptionPane.showMessageDialog(null, "Please put your finger on scanner.....");
+        
+        arduino = new Arduino("COM11", 9600); //enter the port name here, and ensure that Arduino is connected, otherwise exception will be thrown.
+		arduino.openConnection();
+		//System.out.println("Enter 1 to switch LED on and 0  to switch LED off");
+		//char input = ob.nextLine().charAt(0);
+                
+                char input = '2';
+                
+		while(input != 'n'){
+			arduino.serialWrite(input);
+
+                    
+                    try {
+                        TimeUnit.SECONDS.sleep(4);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(IMAccess.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                        String result = arduino.serialRead();
+                        
+                    switch (result.length()) {
+                        case 2:
+                            result = result.replace("\n", "").replace("\r", "");
+                            
+                            loadStdDetail(Integer.parseInt(result));
+                            
+                            JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 3:
+                            result = result.replace("\n", "").replace("\r", "");
+                            
+                            loadStdDetail(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 4:
+                            input = 'n';
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            //System.out.println(Integer.parseInt(result));
+                            break;
+                        default:
+                            input = '2';
+                           // System.out.println(result + " " +result.length());
+                            break;
+                    }                     
+        
+                }       
+		
+		
+		arduino.closeConnection();
+    
+    }//GEN-LAST:event_btn_rbnI_search_stdActionPerformed
+
+    private void btn_rbnI_get_std_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_get_std_listActionPerformed
+        panel_body.removeAll();
+        panel_body.repaint();
+        panel_body.revalidate();
+        
+        Query query_search = session.createQuery("FROM Student");
+        
+        stdList = query_search.list();
+        
+        DefaultTableModel model = (DefaultTableModel) tbl_std_search_list.getModel();
+        model.setRowCount(0);
+        
+        for(Student st:stdList){
+            System.out.println(st.getFirst_name());
+            
+            
+            Object [] row = {st.getFull_name(),st.getStudent_no(),st.getTelephone(),st.getFingerprint_id()};
+            //lQuery.markStdAttendance(st.getId(), false);
+            model.addRow(row);
+        }
+        
+        panel_body.add(panel_search_result);
+        panel_body.repaint();
+        panel_body.revalidate();
+    }//GEN-LAST:event_btn_rbnI_get_std_listActionPerformed
+
+    private void tbl_std_search_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_std_search_listMouseClicked
+        int row = tbl_std_search_list.getSelectedRow();
+        int col = tbl_std_search_list.getSelectedColumn();
+        
+        if(row>=0){
+            loadStdDetail((Integer)tbl_std_search_list.getValueAt(row, 3));
+            
+            
+        }
+    }//GEN-LAST:event_tbl_std_search_listMouseClicked
+
     
     public ImageIcon resizeImage(String imgPath){
         
@@ -2475,6 +2584,8 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_rbnI_add_lecturer;
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
+    private javax.swing.JButton btn_rbnI_get_std_list;
+    private javax.swing.JButton btn_rbnI_search_std;
     private javax.swing.JButton btn_rbn_accounts;
     private javax.swing.JButton btn_rbn_att_gen_report;
     private javax.swing.JButton btn_rbn_att_mark_attendance;
@@ -2552,7 +2663,6 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2561,7 +2671,6 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_floor1;
     private javax.swing.JLabel lbl_mart_att_date;
     private javax.swing.JLabel lbl_mart_att_frm;
@@ -2588,6 +2697,7 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton rbn_settings;
     private javax.swing.JTable tbl_att_mark_st_list;
     private javax.swing.JTable tbl_att_std_list;
+    private javax.swing.JTable tbl_std_search_list;
     private javax.swing.JTextArea txt_acc_lec_address;
     private javax.swing.JTextField txt_acc_lec_email;
     private javax.swing.JTextField txt_acc_lec_first_name;
