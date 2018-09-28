@@ -5,12 +5,14 @@
  */
 package imaccess;
 
+import Queries.LectureQueries;
 import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,7 +29,25 @@ public class StdDetails extends javax.swing.JFrame {
         ResultSet stdD = stdDet;
         
         try {
+            LectureQueries lq = new LectureQueries();
             
+            ResultSet attList = lq.getAttendanceRecord(stdD.getString("id"));
+            
+            if(attList!= null){
+                if(attList.next()){
+                    
+                    while(attList.next()){
+                        
+                        DefaultTableModel model = (DefaultTableModel) tbl_std_dtl_att.getModel();
+                        model.setRowCount(0);
+                        
+                        Object [] row = {attList.getString("subject"),attList.getString("date"),attList.getString("start_time"), attList.getString("end_time"),attList.getString("isAttended")};
+                
+                        model.addRow(row);
+                    }
+                    
+                }
+            }
             
                 //System.out.println(stdD.getString("name"));
                lbl_std_dtl_name.setText(stdD.getString("name"));
@@ -69,84 +89,70 @@ public class StdDetails extends javax.swing.JFrame {
         lbl_std_dtl_no = new javax.swing.JLabel();
         lbl_std_dtl_acyr = new javax.swing.JLabel();
         lbl_std_dtl_dgr = new javax.swing.JLabel();
-        lbl_std_dtl_acyr2 = new javax.swing.JLabel();
         lbl_std_img = new javax.swing.JLabel();
         panel_access_body1 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tbl_std_dtl_att = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panel_student_details.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panel_access_side_bar1.setBackground(new java.awt.Color(204, 204, 255));
+        panel_access_side_bar1.setBackground(new java.awt.Color(0, 153, 153));
 
         lbl_std_dtl_name.setBackground(new java.awt.Color(255, 51, 153));
         lbl_std_dtl_name.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_std_dtl_name.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_std_dtl_name.setText("name");
 
         lbl_std_dtl_no.setBackground(new java.awt.Color(255, 51, 153));
         lbl_std_dtl_no.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_std_dtl_no.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_std_dtl_no.setText("no");
 
         lbl_std_dtl_acyr.setBackground(new java.awt.Color(255, 51, 153));
         lbl_std_dtl_acyr.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_std_dtl_acyr.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_std_dtl_acyr.setText("acyr");
 
         lbl_std_dtl_dgr.setBackground(new java.awt.Color(255, 51, 153));
         lbl_std_dtl_dgr.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         lbl_std_dtl_dgr.setForeground(new java.awt.Color(255, 255, 255));
-
-        lbl_std_dtl_acyr2.setBackground(new java.awt.Color(255, 51, 153));
-        lbl_std_dtl_acyr2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        lbl_std_dtl_acyr2.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_std_dtl_dgr.setText("dgr");
 
         javax.swing.GroupLayout panel_access_side_bar1Layout = new javax.swing.GroupLayout(panel_access_side_bar1);
         panel_access_side_bar1.setLayout(panel_access_side_bar1Layout);
         panel_access_side_bar1Layout.setHorizontalGroup(
             panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_access_side_bar1Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addComponent(lbl_std_dtl_no, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lbl_std_dtl_name, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                    .addComponent(lbl_std_dtl_dgr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
+                        .addComponent(lbl_std_dtl_acyr, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_access_side_bar1Layout.createSequentialGroup()
-                .addGroup(panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(lbl_std_dtl_name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_std_dtl_dgr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lbl_std_dtl_acyr, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(30, 30, 30))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_access_side_bar1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_std_dtl_acyr2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(lbl_std_dtl_no, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_access_side_bar1Layout.setVerticalGroup(
             panel_access_side_bar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_access_side_bar1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
+                .addComponent(lbl_std_img, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addComponent(lbl_std_dtl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_std_dtl_no, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_std_dtl_acyr2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_std_dtl_acyr, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_std_dtl_dgr, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         panel_student_details.add(panel_access_side_bar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, -1));
@@ -247,7 +253,6 @@ public class StdDetails extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel lbl_std_dtl_acyr;
-    private javax.swing.JLabel lbl_std_dtl_acyr2;
     private javax.swing.JLabel lbl_std_dtl_dgr;
     private javax.swing.JLabel lbl_std_dtl_name;
     private javax.swing.JLabel lbl_std_dtl_no;

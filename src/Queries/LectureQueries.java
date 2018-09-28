@@ -142,7 +142,10 @@ public class LectureQueries {
     }
     
     public ResultSet getStudentDetailsByFP(int fpId) throws SQLException{
-        String sql = "SELECT concat(student.title,' ',student.full_name) as name, student.student_no, "
+        
+        System.out.println("lquery fp is is " +fpId);
+        
+        String sql = "SELECT student.id,img_path, concat(student.title,' ',student.full_name) as name, student.student_no, "
                 + "(select academic_years.academic_year from academic_years WHERE academic_years.id = student.academic_yr_id LIMIT 1) as ac_yr, "
                 + "(SELECT degrees.short_name FROM degrees WHERE degrees.id = student.degree_id LIMIT 1) as degree "
                 + "FROM `student` WHERE fingerprint_id = ?";
@@ -151,7 +154,7 @@ public class LectureQueries {
 //System.out.println("hi");
         
             pst = con.prepareStatement(sql);
-            pst.setInt(1, 116);
+            pst.setInt(1, fpId);
             ResultSet rst = pst.executeQuery();
             return rst;
            
@@ -216,6 +219,24 @@ public class LectureQueries {
         }
         
         return false;
+    }
+     
+     
+    public ResultSet getAttendanceRecord(String std_id){
+         String sql = "SELECT (SELECT subjects.code FROM subjects WHERE subjects.id = sr.subject_id) as subject, sr.start_time, sr.end_time, sr.date, sa.isAttended FROM stu_attendance as sa, subject_record as sr" +
+                        " WHERE sa.subject_rec_id = sr.id" +
+                        " and sa.stu_id = ?";
+         
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, std_id);
+            return pst.executeQuery();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(LectureQueries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+         return null;
     }
     
     

@@ -92,23 +92,23 @@ public class IMAccess extends javax.swing.JFrame {
     
     
     public IMAccess() {
-//        try {
-//            // Set System L&F
-////            UIManager.setLookAndFeel(
-////                UIManager.getSystemLookAndFeelClassName());
-//        } 
-//        catch (UnsupportedLookAndFeelException e) {
-//           // handle exception
-//        }
-//        catch (ClassNotFoundException e) {
-//           // handle exception
-//        }
-//        catch (InstantiationException e) {
-//           // handle exception
-//        }
-//        catch (IllegalAccessException e) {
-//           // handle exception
-//        }
+        try {
+            // Set System L&F
+            UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+           // handle exception
+        }
+        catch (ClassNotFoundException e) {
+           // handle exception
+        }
+        catch (InstantiationException e) {
+           // handle exception
+        }
+        catch (IllegalAccessException e) {
+           // handle exception
+        }
         initComponents();
         
         session = sessionFactory().openSession();
@@ -738,6 +738,8 @@ public class IMAccess extends javax.swing.JFrame {
         );
 
         panel_body.add(panel_add_student, "card2");
+
+        panel_add_visitor.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setText("Title");
@@ -2167,58 +2169,60 @@ public class IMAccess extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_att_mark_lectureItemStateChanged
 
     private void btn_mark_fingerprint_attActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mark_fingerprint_attActionPerformed
-        markAttendanceByFingerPrint(131);
+        //markAttendanceByFingerPrint(131);
         
             
-//        arduino = new Arduino("COM11", 9600); //enter the port name here, and ensure that Arduino is connected, otherwise exception will be thrown.
-//		arduino.openConnection();
-//		//System.out.println("Enter 1 to switch LED on and 0  to switch LED off");
-//		//char input = ob.nextLine().charAt(0);
-//                
-//                char input = '2';
-//                
-//		while(input != 'n'){
-//			arduino.serialWrite(input);
-//
-//                    
-//                    try {
-//                        TimeUnit.SECONDS.sleep(4);
-//                    } catch (InterruptedException ex) {
-//                        Logger.getLogger(IMAccess.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    
-//                        String result = arduino.serialRead();
-//                        
-//                    switch (result.length()) {
-//                        case 2:
-//                            result = result.replace("\n", "").replace("\r", "");
-//                            loadStdDetail(Integer.parseInt(result));
-//                            //JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
-//                            //System.out.println(Integer.parseInt(result));
-//                            input = 'n';
-//                            break;
-//                        case 3:
-//                            result = result.replace("\n", "").replace("\r", "");
-//                            loadStdDetail(Integer.parseInt(result));
-//                            //System.out.println(Integer.parseInt(result));
-//                            input = 'n';
-//                            break;
-//                        case 4:
-//                            input = 'n';
-//                            result = result.replace("\n", "").replace("\r", "");
-//                            loadStdDetail(Integer.parseInt(result));
-//                            //System.out.println(Integer.parseInt(result));
-//                            break;
-//                        default:
-//                            input = '2';
-//                            System.out.println(result + " " +result.length());
-//                            break;
-//                    }                     
-//        
-//                }       
-//		
-//		
-//		arduino.closeConnection();
+        arduino = new Arduino("COM11", 9600); //enter the port name here, and ensure that Arduino is connected, otherwise exception will be thrown.
+		arduino.openConnection();
+		//System.out.println("Enter 1 to switch LED on and 0  to switch LED off");
+		//char input = ob.nextLine().charAt(0);
+                
+                char input = '2';
+                
+		while(input != 'n'){
+			arduino.serialWrite(input);
+
+                    
+                    try {
+                        TimeUnit.SECONDS.sleep(4);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(IMAccess.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                        String result = arduino.serialRead();
+                        
+                    switch (result.length()) {
+                        case 2:
+                            result = result.replace("\n", "").replace("\r", "");
+                            
+                            loadStdDetail(Integer.parseInt(result));
+                            
+                            JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
+                            System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 3:
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            System.out.println(Integer.parseInt(result));
+                            input = 'n';
+                            break;
+                        case 4:
+                            input = 'n';
+                            result = result.replace("\n", "").replace("\r", "");
+                            loadStdDetail(Integer.parseInt(result));
+                            System.out.println(Integer.parseInt(result));
+                            break;
+                        default:
+                            input = '2';
+                            System.out.println(result + " " +result.length());
+                            break;
+                    }                     
+        
+                }       
+		
+		
+		arduino.closeConnection();
     }//GEN-LAST:event_btn_mark_fingerprint_attActionPerformed
 
     public void loadStdDetail(int fpId){
