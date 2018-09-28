@@ -2261,6 +2261,60 @@ public class IMAccess extends javax.swing.JFrame {
         
         
     }
+    
+     public ImageIcon resizeImageLec(String imgPath){
+        
+        ImageIcon myImage = new ImageIcon(imgPath);
+        Image img = myImage.getImage();
+        Image newImage = img.getScaledInstance(lec_acc_user_img.getWidth(), lec_acc_user_img.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImage);
+        return image;
+        
+        
+    }
+    
+//     JFileChooser file = new JFileChooser();
+//         //file.setCurrentDirectory(new File(System.getProperty("")));
+//         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","*.jpg","*.png");
+//         file.addChoosableFileFilter(filter);
+//         int result = file.showSaveDialog(null);
+//         if(result == JFileChooser.APPROVE_OPTION){
+//             File selectedFile = file.getSelectedFile();
+//             String path = selectedFile.getAbsolutePath();
+            
+//             System.out.println(path);
+            
+//             txt_acc_lec_user_img_path.setText(path);
+//             lec_acc_user_img.setIcon(resizeImage(path));
+    
+     public ImageIcon resizeImageVisitor(String imgPath){
+        
+        ImageIcon myImage = new ImageIcon(imgPath);
+        Image img = myImage.getImage();
+        Image newImage = img.getScaledInstance(vtr_acc_user_img.getWidth(), vtr_acc_user_img.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImage);
+        return image;
+        
+        
+    }
+    
+    
+    //     JFileChooser file = new JFileChooser();
+//         //file.setCurrentDirectory(new File(System.getProperty("")));
+//         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","*.jpg","*.png");
+//         file.addChoosableFileFilter(filter);
+//         int result = file.showSaveDialog(null);
+//         if(result == JFileChooser.APPROVE_OPTION){
+//             File selectedFile = file.getSelectedFile();
+//             String path = selectedFile.getAbsolutePath();
+            
+//             System.out.println(path);
+            
+//             txt_acc_vtr_user_img_path.setText(path);
+//             vtr_acc_user_img.setIcon(resizeImage(path));
+    
+    
+    
     /**
      * @param args the command line arguments
      */
