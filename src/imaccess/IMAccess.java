@@ -92,23 +92,23 @@ public class IMAccess extends javax.swing.JFrame {
     
     
     public IMAccess() {
-        try {
-            // Set System L&F
-            UIManager.setLookAndFeel(
-            UIManager.getSystemLookAndFeelClassName());
-        } 
-        catch (UnsupportedLookAndFeelException e) {
-           // handle exception
-        }
-        catch (ClassNotFoundException e) {
-           // handle exception
-        }
-        catch (InstantiationException e) {
-           // handle exception
-        }
-        catch (IllegalAccessException e) {
-           // handle exception
-        }
+//        try {
+//            // Set System L&F
+//            UIManager.setLookAndFeel(
+//            UIManager.getSystemLookAndFeelClassName());
+//        } 
+//        catch (UnsupportedLookAndFeelException e) {
+//           // handle exception
+//        }
+//        catch (ClassNotFoundException e) {
+//           // handle exception
+//        }
+//        catch (InstantiationException e) {
+//           // handle exception
+//        }
+//        catch (IllegalAccessException e) {
+//           // handle exception
+//        }
         initComponents();
         
         session = sessionFactory().openSession();
@@ -170,6 +170,8 @@ public class IMAccess extends javax.swing.JFrame {
         btn_rbnI_add_lecturer = new javax.swing.JButton();
         btn_rbnI_get_std_list = new javax.swing.JButton();
         btn_rbnI_search_std = new javax.swing.JButton();
+        btn_rbnI_get_lec_list = new javax.swing.JButton();
+        btn_rbnI_get_visitor_list = new javax.swing.JButton();
         panel_rbn_settings = new javax.swing.JPanel();
         btn_rbn_stgs_update_access = new javax.swing.JButton();
         btn_rbn_stgs_set_lec = new javax.swing.JButton();
@@ -179,8 +181,6 @@ public class IMAccess extends javax.swing.JFrame {
         rbn_settings = new javax.swing.JButton();
         btn_rbn_accounts = new javax.swing.JButton();
         rbn_attendance = new javax.swing.JButton();
-        txt_search = new javax.swing.JTextField();
-        btn_search = new javax.swing.JButton();
         panel_body = new javax.swing.JPanel();
         panel_add_student = new javax.swing.JPanel();
         txt_acc_user_first_name = new javax.swing.JTextField();
@@ -327,7 +327,7 @@ public class IMAccess extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panel_rbn_body.setBackground(new java.awt.Color(255, 255, 255));
@@ -336,25 +336,41 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_accounts.setBackground(new java.awt.Color(255, 255, 255));
         panel_rbn_accounts.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btn_rbnI_add_visitor1.setBackground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_add_visitor1.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_add_visitor1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_add_visitor1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_add_visitor1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Checked_User_Male_32px.png"))); // NOI18N
         btn_rbnI_add_visitor1.setText("Add Visitor");
+        btn_rbnI_add_visitor1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_add_visitor1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbnI_add_visitor1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbnI_add_visitor1ActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 0, 188, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_visitor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 130, 80));
 
+        btn_rbnI_add_stuent.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_add_stuent.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_add_stuent.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_add_stuent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Add_User_Male_32px.png"))); // NOI18N
         btn_rbnI_add_stuent.setText("Add Student");
+        btn_rbnI_add_stuent.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_add_stuent.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbnI_add_stuent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbnI_add_stuentActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_stuent, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 0, 100, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_stuent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 80));
 
-        btn_rbnI_add_lecturer.setBackground(new java.awt.Color(243, 243, 243));
+        btn_rbnI_add_lecturer.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_add_lecturer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_add_lecturer.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_add_lecturer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Graduation_Cap_32px.png"))); // NOI18N
         btn_rbnI_add_lecturer.setText("Add Lecturer");
+        btn_rbnI_add_lecturer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_add_lecturer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbnI_add_lecturer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_rbnI_add_lecturerMouseClicked(evt);
@@ -365,30 +381,69 @@ public class IMAccess extends javax.swing.JFrame {
                 btn_rbnI_add_lecturerActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_add_lecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 110, 91));
+        panel_rbn_accounts.add(btn_rbnI_add_lecturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 130, 80));
 
-        btn_rbnI_get_std_list.setText("Student List");
+        btn_rbnI_get_std_list.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_get_std_list.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_get_std_list.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_get_std_list.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_View_32px.png"))); // NOI18N
+        btn_rbnI_get_std_list.setText("View Student");
+        btn_rbnI_get_std_list.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_get_std_list.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbnI_get_std_list.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbnI_get_std_listActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_get_std_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 100, 90));
+        panel_rbn_accounts.add(btn_rbnI_get_std_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 130, 80));
 
+        btn_rbnI_search_std.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_search_std.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_search_std.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_search_std.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Search_35px_1.png"))); // NOI18N
         btn_rbnI_search_std.setText("Search Student");
+        btn_rbnI_search_std.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_search_std.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbnI_search_std.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbnI_search_stdActionPerformed(evt);
             }
         });
-        panel_rbn_accounts.add(btn_rbnI_search_std, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 110, 90));
+        panel_rbn_accounts.add(btn_rbnI_search_std, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 130, 80));
+
+        btn_rbnI_get_lec_list.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_get_lec_list.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_get_lec_list.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_get_lec_list.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Search_35px_1.png"))); // NOI18N
+        btn_rbnI_get_lec_list.setText("View Lecturer");
+        btn_rbnI_get_lec_list.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_get_lec_list.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_rbnI_get_lec_list.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rbnI_get_lec_listActionPerformed(evt);
+            }
+        });
+        panel_rbn_accounts.add(btn_rbnI_get_lec_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 130, 80));
+
+        btn_rbnI_get_visitor_list.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbnI_get_visitor_list.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbnI_get_visitor_list.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbnI_get_visitor_list.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Key_35px_1.png"))); // NOI18N
+        btn_rbnI_get_visitor_list.setText("Visitor list");
+        btn_rbnI_get_visitor_list.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbnI_get_visitor_list.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        panel_rbn_accounts.add(btn_rbnI_get_visitor_list, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 130, 80));
 
         panel_rbn_body.add(panel_rbn_accounts, "card2");
 
         panel_rbn_settings.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_rbn_stgs_update_access.setBackground(new java.awt.Color(243, 243, 243));
+        btn_rbn_stgs_update_access.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbn_stgs_update_access.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbn_stgs_update_access.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Key_35px_1.png"))); // NOI18N
         btn_rbn_stgs_update_access.setText("Update Acess");
+        btn_rbn_stgs_update_access.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbn_stgs_update_access.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbn_stgs_update_access.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_rbn_stgs_update_accessMouseClicked(evt);
@@ -400,8 +455,12 @@ public class IMAccess extends javax.swing.JFrame {
             }
         });
 
-        btn_rbn_stgs_set_lec.setBackground(new java.awt.Color(243, 243, 243));
+        btn_rbn_stgs_set_lec.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbn_stgs_set_lec.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbn_stgs_set_lec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Graduation_Cap_32px.png"))); // NOI18N
         btn_rbn_stgs_set_lec.setText("Set Lecture");
+        btn_rbn_stgs_set_lec.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbn_stgs_set_lec.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbn_stgs_set_lec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_rbn_stgs_set_lecMouseClicked(evt);
@@ -436,9 +495,16 @@ public class IMAccess extends javax.swing.JFrame {
         panel_rbn_body.add(panel_rbn_settings, "card4");
 
         panel_rbn_Attendance.setBackground(new java.awt.Color(255, 255, 255));
+        panel_rbn_Attendance.setForeground(new java.awt.Color(51, 0, 102));
         panel_rbn_Attendance.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btn_rbn_att_mark_attendance.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbn_att_mark_attendance.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbn_att_mark_attendance.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbn_att_mark_attendance.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Registration_32px.png"))); // NOI18N
         btn_rbn_att_mark_attendance.setText("Mark Attendance");
+        btn_rbn_att_mark_attendance.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbn_att_mark_attendance.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbn_att_mark_attendance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbn_att_mark_attendanceActionPerformed(evt);
@@ -446,7 +512,13 @@ public class IMAccess extends javax.swing.JFrame {
         });
         panel_rbn_Attendance.add(btn_rbn_att_mark_attendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 190, 80));
 
+        btn_rbn_att_gen_report.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbn_att_gen_report.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btn_rbn_att_gen_report.setForeground(new java.awt.Color(255, 255, 255));
+        btn_rbn_att_gen_report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons/icons8_Graduation_Cap_32px.png"))); // NOI18N
         btn_rbn_att_gen_report.setText("Arrange Lecture");
+        btn_rbn_att_gen_report.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_rbn_att_gen_report.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn_rbn_att_gen_report.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_rbn_att_gen_reportActionPerformed(evt);
@@ -458,6 +530,8 @@ public class IMAccess extends javax.swing.JFrame {
 
         jPanel2.add(panel_rbn_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1010, 80));
 
+        rbn_settings.setBackground(new java.awt.Color(51, 0, 102));
+        rbn_settings.setForeground(new java.awt.Color(255, 255, 255));
         rbn_settings.setText("Settings");
         rbn_settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -466,6 +540,8 @@ public class IMAccess extends javax.swing.JFrame {
         });
         jPanel2.add(rbn_settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 190, 30));
 
+        btn_rbn_accounts.setBackground(new java.awt.Color(51, 0, 102));
+        btn_rbn_accounts.setForeground(new java.awt.Color(255, 255, 255));
         btn_rbn_accounts.setText("Accounts");
         btn_rbn_accounts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +550,8 @@ public class IMAccess extends javax.swing.JFrame {
         });
         jPanel2.add(btn_rbn_accounts, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 190, 30));
 
+        rbn_attendance.setBackground(new java.awt.Color(51, 0, 102));
+        rbn_attendance.setForeground(new java.awt.Color(255, 255, 255));
         rbn_attendance.setText("Attendance");
         rbn_attendance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,17 +559,6 @@ public class IMAccess extends javax.swing.JFrame {
             }
         });
         jPanel2.add(rbn_attendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 190, 30));
-
-        txt_search.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jPanel2.add(txt_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 7, 240, 30));
-
-        btn_search.setText("s");
-        btn_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btn_search, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 7, 50, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 130));
 
@@ -582,7 +649,8 @@ public class IMAccess extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Degree");
 
-        btn_acc_user_add.setBackground(new java.awt.Color(0, 153, 153));
+        btn_acc_user_add.setBackground(new java.awt.Color(51, 0, 102));
+        btn_acc_user_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_acc_user_add.setText("Add");
         btn_acc_user_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1472,6 +1540,8 @@ public class IMAccess extends javax.swing.JFrame {
 
         panel_body.add(panel_update_access, "card7");
 
+        panel_set_lecture.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel32.setText("Lecture Title");
 
@@ -1765,6 +1835,7 @@ public class IMAccess extends javax.swing.JFrame {
 
     private void btn_acc_user_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_acc_user_addActionPerformed
         
+        
         student.setTitle(combo_acc_user_title.getSelectedItem().toString());
         student.setFirst_name(txt_acc_user_first_name.getText());
         student.setLast_name(txt_acc_user_last_name.getText());
@@ -1791,6 +1862,26 @@ public class IMAccess extends javax.swing.JFrame {
                 session.save(student);
                 session.getTransaction().commit();
                 System.out.println(session.getTransaction().getLocalStatus());
+                
+            JOptionPane.showMessageDialog(this, "Student added successfully");
+                
+                combo_acc_user_title.setSelectedItem("Mr.");
+	    txt_acc_user_first_name.setText(null);
+	    txt_acc_user_last_name.setText(null);
+	    txt_acc_user_full_name.setText(null);
+	    txt_acc_user_stu_no.setText("IM/20");
+	    txt_acc_student_address.setText(null);
+	    combo_acc_user_day.setSelectedItem("Day");
+            combo_acc_user_month.setSelectedItem("Month");
+	    combo_acc_user_year.setSelectedItem("Year");
+	    txt_acc_user_telephone.setText(null);
+            combo_acc_user_acedamic_yr.setSelectedItem("2016/2017");
+            combo_acc_user_degree.setSelectedItem("MIT");
+            
+            img_acc_user_img.setIcon(null);
+            img_acc_user_img.revalidate();
+            
+            
     }//GEN-LAST:event_btn_acc_user_addActionPerformed
 
     private void txt_acc_lec_telephoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_acc_lec_telephoneActionPerformed
@@ -1927,6 +2018,19 @@ public class IMAccess extends javax.swing.JFrame {
                 vQuery.setAccess(vQuery.getLastUserId());
             
                 SendEmail se = new SendEmail(txt_acc_visitor_email.getText(),txt_acc_visitor_first_name.getText() );
+                
+            combo_acc_visitor_title.setSelectedItem("Mr.");
+	    txt_acc_visitor_first_name.setText(null);
+	    txt_acc_visitor_last_name.setText(null);
+	    txt_acc_visitor_full_name.setText(null);
+	    txt_acc_visitor_email.setText(null);
+	    txt_acc_visitor_address.setText(null);
+	    txt_acc_visitor_telephone.setText(null);
+            txt_acc_visitor_nic.setText(null);
+            txt_acc_user_img_path_vtr.setText(null);
+            
+           vtr_acc_user_img.setIcon(null);
+           vtr_acc_user_img.revalidate();
         
     }//GEN-LAST:event_btn_acc_visitor_addActionPerformed
 
@@ -1942,18 +2046,6 @@ public class IMAccess extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btn_rbnI_add_visitor1ActionPerformed
-
-    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
-        String query = "from "+ selected_table_category + " WHERE full_name like '%"+ (String)txt_search.getText() +"%'";
-        Query personResult = session.createQuery(query);
-        stdList = personResult.list();
-        
-        
-        for(Student std:stdList){
-            System.out.println(std.getFirst_name());
-        }
-        
-    }//GEN-LAST:event_btn_searchActionPerformed
 
     private void btn_rbn_stgs_update_accessMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_rbn_stgs_update_accessMouseClicked
         // TODO add your handling code here:
@@ -2098,7 +2190,7 @@ public class IMAccess extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_stg_lectureActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //lQuery = new LectureQueries();
+        lQuery = new LectureQueries();
         lQuery.arrangeLecture("SENG31255", combo_att_gen_sheet_lec.getSelectedItem().toString(), (combo_att_gen_sheet_from_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), (combo_att_gen_sheet_To_H.getValue()+":"+combo_att_gen_sheet_To_M.getValue()), combo_att_gen_sheet_date.getDate().toString(), combo_att_gen_sheet_degree.getSelectedItem().toString(), combo_att_gen_sheet_ac_yr.getSelectedItem().toString());
         
         
@@ -2208,7 +2300,7 @@ public class IMAccess extends javax.swing.JFrame {
                         case 2:
                             result = result.replace("\n", "").replace("\r", "");
                             
-                            loadStdDetail(Integer.parseInt(result));
+                              markAttendanceByFingerPrint(Integer.parseInt(result));
                             
                             JOptionPane.showConfirmDialog(null, Integer.parseInt(result));
                             //System.out.println(Integer.parseInt(result));
@@ -2216,14 +2308,14 @@ public class IMAccess extends javax.swing.JFrame {
                             break;
                         case 3:
                             result = result.replace("\n", "").replace("\r", "");
-                            loadStdDetail(Integer.parseInt(result));
+                              markAttendanceByFingerPrint(Integer.parseInt(result));
                             //System.out.println(Integer.parseInt(result));
                             input = 'n';
                             break;
                         case 4:
                             input = 'n';
                             result = result.replace("\n", "").replace("\r", "");
-                            loadStdDetail(Integer.parseInt(result));
+                              markAttendanceByFingerPrint(Integer.parseInt(result));
                             //System.out.println(Integer.parseInt(result));
                             break;
                         default:
@@ -2265,7 +2357,8 @@ public class IMAccess extends javax.swing.JFrame {
     
     public void markAttendanceByFingerPrint(int fpId){
         boolean rst = lQuery.updateAttendanceByFP(String.valueOf(fpId), selected_lec_id,false );
-              
+        
+              JOptionPane.showMessageDialog(this, "Attendance marked.....");
               if(rst){
                           
                 ResultSet rs = lQuery.getStdBatch(selected_lec_id,selected_acYr,selected_degreeId);
@@ -2495,6 +2588,10 @@ public class IMAccess extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbl_std_search_listMouseClicked
 
+    private void btn_rbnI_get_lec_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rbnI_get_lec_listActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_rbnI_get_lec_listActionPerformed
+
     
     public ImageIcon resizeImage(String imgPath){
         
@@ -2584,14 +2681,15 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JButton btn_rbnI_add_lecturer;
     private javax.swing.JButton btn_rbnI_add_stuent;
     private javax.swing.JButton btn_rbnI_add_visitor1;
+    private javax.swing.JButton btn_rbnI_get_lec_list;
     private javax.swing.JButton btn_rbnI_get_std_list;
+    private javax.swing.JButton btn_rbnI_get_visitor_list;
     private javax.swing.JButton btn_rbnI_search_std;
     private javax.swing.JButton btn_rbn_accounts;
     private javax.swing.JButton btn_rbn_att_gen_report;
     private javax.swing.JButton btn_rbn_att_mark_attendance;
     private javax.swing.JButton btn_rbn_stgs_set_lec;
     private javax.swing.JButton btn_rbn_stgs_update_access;
-    private javax.swing.JButton btn_search;
     private javax.swing.JButton btn_std_add_img;
     private javax.swing.JButton btn_std_add_img_lec;
     private javax.swing.JButton btn_std_add_img_vtr;
@@ -2724,7 +2822,6 @@ public class IMAccess extends javax.swing.JFrame {
     private javax.swing.JTextField txt_acc_visitor_last_name;
     private javax.swing.JTextField txt_acc_visitor_nic;
     private javax.swing.JTextField txt_acc_visitor_telephone;
-    private javax.swing.JTextField txt_search;
     private javax.swing.JTextField txt_stg_lecture_code;
     private javax.swing.JTextArea txt_stg_lecture_des;
     private javax.swing.JTextField txt_stg_lecture_name;
